@@ -18,7 +18,7 @@
   color-scheme:light;
   --bg:#F2F2F7; --card:#FFFFFF; --hl:#D1D1D6; --sheet:#F2F2F7; --sheetcell:#FFFFFF;
   --label:#000000; --label2:rgba(60,60,67,.6); --label3:rgba(60,60,67,.3);
-  --sep:rgba(60,60,67,.29); --fill:rgba(120,120,128,.12); --seg-thumb:#FFFFFF;
+  --sep:rgba(60,60,67,.29); --fill:rgba(120,120,128,.12); --fill2:rgba(120,120,128,.2); --seg-thumb:#FFFFFF;
   --tint:#5856D6; --tint-bg:rgba(88,86,214,.12); --ring2:#AF52DE; --ring-track:rgba(88,86,214,.15);
   --blue:#007AFF; --green:#34C759; --orange:#FF9500; --red:#FF3B30; --gray:#8E8E93;
   --c0:#007AFF; --c1:#FF2D55; --c2:#0A93A8; --c3:#AF52DE; --c4:#B8860B;
@@ -37,7 +37,7 @@
     color-scheme:dark;
     --bg:#000000; --card:#1C1C1E; --hl:#3A3A3C; --sheet:#1C1C1E; --sheetcell:#2C2C2E;
     --label:#FFFFFF; --label2:rgba(235,235,245,.6); --label3:rgba(235,235,245,.3);
-    --sep:rgba(84,84,88,.65); --fill:rgba(118,118,128,.24); --seg-thumb:#636366;
+    --sep:rgba(84,84,88,.65); --fill:rgba(118,118,128,.24); --fill2:rgba(120,120,128,.36); --seg-thumb:#636366;
     --tint:#5E5CE6; --tint-bg:rgba(94,92,230,.22); --ring2:#BF5AF2; --ring-track:rgba(94,92,230,.25);
     --blue:#0A84FF; --green:#30D158; --orange:#FF9F0A; --red:#FF453A; --gray:#8E8E93;
     --c0:#0A84FF; --c1:#FF375F; --c2:#1A9FB5; --c3:#BF5AF2; --c4:#B08519;
@@ -53,7 +53,7 @@
   color-scheme:dark;
   --bg:#000000; --card:#1C1C1E; --hl:#3A3A3C; --sheet:#1C1C1E; --sheetcell:#2C2C2E;
   --label:#FFFFFF; --label2:rgba(235,235,245,.6); --label3:rgba(235,235,245,.3);
-  --sep:rgba(84,84,88,.65); --fill:rgba(118,118,128,.24); --seg-thumb:#636366;
+  --sep:rgba(84,84,88,.65); --fill:rgba(118,118,128,.24); --fill2:rgba(120,120,128,.36); --seg-thumb:#636366;
   --tint:#5E5CE6; --tint-bg:rgba(94,92,230,.22); --ring2:#BF5AF2; --ring-track:rgba(94,92,230,.25);
   --blue:#0A84FF; --green:#30D158; --orange:#FF9F0A; --red:#FF453A; --gray:#8E8E93;
   --c0:#0A84FF; --c1:#FF375F; --c2:#1A9FB5; --c3:#BF5AF2; --c4:#B08519;
@@ -77,6 +77,7 @@ html.sb-translucent body::before{content:"";position:fixed;left:0;right:0;top:0;
 button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;letter-spacing:inherit;text-align:inherit}
 input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit}
 svg{display:block}
+b{font-weight:600}
 .hide{display:none!important}
 .rounded{font-family:ui-rounded,"SF Pro Rounded",-apple-system,system-ui,sans-serif}
 .muted{color:var(--label2)} .tint{color:var(--tint)} .danger{color:var(--red)!important}
@@ -88,14 +89,16 @@ main{max-width:680px;margin:0 auto;transition:transform .45s var(--ease)}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:20;height:calc(44px + var(--sat));padding:var(--sat) max(6px,var(--sar)) 0 max(6px,var(--sal));
   display:grid;grid-template-columns:1fr auto 1fr;align-items:center;transition:background .2s,box-shadow .2s,transform .45s var(--ease)}
 .navbar.compact{background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 .5px 0 var(--bar-sep)}
-.nb-title{font-size:17px;font-weight:600;letter-spacing:-.43px;opacity:0;transition:opacity .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:56vw;text-align:center}
+.nb-title{font-size:17px;font-weight:600;letter-spacing:-.43px;opacity:0;transition:opacity .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:50vw;text-align:center}
 .navbar.compact .nb-title,.nb-title.show{opacity:1}
-.nb-left{justify-self:start;display:flex} .nb-right{justify-self:end;display:flex}
+.nb-left{justify-self:start;display:flex;min-width:0} .nb-right{justify-self:end;display:flex}
 .nb-btn{height:44px;min-width:44px;display:grid;place-items:center;color:var(--tint)}
 .nb-btn svg{width:23px;height:23px}
-.nb-back{display:flex;align-items:center;gap:1px;color:var(--tint);height:44px;padding-right:8px;font-size:17px}
-.nb-back svg{width:24px;height:24px}
-.nb-btn:active,.nb-back:active,.tap:active{opacity:.35}
+.nb-txt{height:44px;padding:0 10px;color:var(--tint);font-size:17px}
+.nb-back{display:flex;align-items:center;gap:1px;color:var(--tint);height:44px;padding-right:8px;font-size:17px;min-width:0}
+.nb-back svg{width:24px;height:24px;flex:none}
+.nb-back .bl{max-width:30vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nb-btn:active,.nb-back:active,.nb-txt:active{opacity:.35}
 body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 
 /* ---------- large title ---------- */
@@ -110,31 +113,38 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 .sec-h .r{text-transform:none;font-variant-numeric:tabular-nums}
 .sec-h button{color:var(--tint);text-transform:none;font-size:15px;letter-spacing:-.24px}
 .sec-f{margin:7px 32px 0;font-size:13px;line-height:18px;color:var(--label2);letter-spacing:-.08px}
+.sec-f:empty{display:none}
 .sec-f b{color:var(--label);font-weight:600}
 .group{background:var(--card);border-radius:10px;margin:0 16px;overflow:hidden;--inset:16px}
-.group.icons{--inset:58px}
+.group.icons{--inset:56px}
 .cell{position:relative;display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 16px;background:var(--card);width:100%;color:var(--label)}
-.group>.cell:not(:first-child)::after,.group>.swipe:not(:first-child)>.cell::after{content:"";position:absolute;top:0;right:0;left:var(--inset);height:1px;background:var(--sep);transform:scaleY(.5);transform-origin:0 0;pointer-events:none}
+.group>.cell:not(:first-child)::after{content:"";position:absolute;top:0;right:0;left:var(--inset);height:1px;background:var(--sep);transform:scaleY(.5);transform-origin:0 0;pointer-events:none}
 .cell.link:active,.cell[data-act]:active{background:var(--hl)}
+.group.dim .cell{opacity:.55}
 .ic{width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:#fff;background:var(--c,var(--gray));flex:none;font-size:15px;font-weight:600;letter-spacing:0}
 .ic svg{width:19px;height:19px}
+.ic.plan{background:transparent;color:var(--c);box-shadow:inset 0 0 0 1.5px var(--c)}
 .cell-main{flex:1;min-width:0;padding:5px 0}
 .cell-t{font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cell-s{font-size:15px;color:var(--label2);letter-spacing:-.24px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cell-s.wrap{white-space:normal}
+.cell-s b{color:var(--label)}
 .cell-n{font-size:13px;color:var(--label2);letter-spacing:-.08px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.desc{font-size:15px;line-height:1.35;color:var(--label);margin-top:4px;white-space:pre-wrap;word-break:break-word;letter-spacing:-.24px}
+.cell-main.desc{margin:0;padding:11px 0;font-size:17px;letter-spacing:-.41px}
 .cell-amt{font-size:16px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
-.cell-v{margin-left:auto;color:var(--label2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.cell-v{margin-left:auto;color:var(--label2);white-space:nowrap;font-variant-numeric:tabular-nums;text-align:right}
+.cell-v b{color:var(--label)}
 .chev{flex:none;width:13px;height:13px;color:var(--label3);margin-right:-2px}
 .chev svg{width:13px;height:13px}
+.ck{flex:none;width:20px;height:20px;color:var(--tint)}
+.ck svg{width:20px;height:20px}
+.cpy{flex:none;width:17px;height:17px;color:var(--tint)}
+.cpy svg{width:17px;height:17px}
 .inv-r{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-
-/* swipe to delete */
-.swipe{position:relative}
-.swipe-actions{position:absolute;top:0;bottom:0;right:0;width:86px;display:flex;background:var(--red);visibility:hidden}
-.swipe.sw-on .swipe-actions{visibility:visible}
-.swipe-del{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff;font-size:13px;letter-spacing:-.08px}
-.swipe-del svg{width:21px;height:21px}
-.swipe-content{touch-action:pan-y;z-index:1}
+.pill-btn{flex:none;height:28px;padding:0 12px;border-radius:14px;background:var(--st-open-bg);color:var(--st-open);font-size:13px;font-weight:600;letter-spacing:-.08px}
+.pill-btn.tint{background:var(--tint-bg);color:var(--tint)}
+.pill-btn:active{opacity:.6}
 
 /* ---------- controls ---------- */
 .seg{position:relative;display:flex;background:var(--fill);border-radius:9px;padding:2px;margin:0 16px;--n:2;--i:0}
@@ -161,11 +171,19 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 .btn.gray{background:var(--card);color:var(--tint)}
 .btn.plain{background:var(--sheetcell);color:var(--tint);font-weight:400}
 .btn:active{opacity:.7}
+.btn-row{display:flex;gap:10px;margin:12px 16px 0}
+.btn-row .btn{margin:0;width:auto;flex:1}
 .icon-btn{width:34px;height:34px;border-radius:17px;background:var(--fill);color:var(--tint);display:grid;place-items:center;flex:none}
 .icon-btn svg{width:17px;height:17px}
 .icon-btn:disabled{opacity:.3;cursor:default}
+.switch{position:relative;margin-left:auto;width:51px;height:31px;flex:none}
+.switch input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:pointer;z-index:1}
+.switch i{position:absolute;inset:0;border-radius:16px;background:var(--fill2);transition:background .25s}
+.switch i::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.15),0 3px 1px rgba(0,0,0,.06);transition:transform .25s var(--ease)}
+.switch input:checked+i{background:var(--green)}
+.switch input:checked+i::after{transform:translateX(20px)}
 
-/* pickers (native pickers under an iOS-style pill) */
+/* pickers (native pickers onder een iOS-pil) */
 .pick{position:relative;margin-left:auto;display:inline-flex;align-items:center;height:34px;padding:0 11px;border-radius:8px;background:var(--fill);font-size:17px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .pick.is-empty .pv{color:var(--tint)}
 .pick input{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;border:0;margin:0;padding:0;-webkit-appearance:none;appearance:none;cursor:pointer;min-width:0}
@@ -178,16 +196,17 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 .fld input{width:96px;text-align:right;border:0;background:none;outline:none;font-size:17px;color:var(--label);padding:8px 0;-webkit-appearance:none;appearance:none;font-variant-numeric:tabular-nums}
 .fld.wide input{width:180px}
 .fld input::placeholder{color:var(--label3)}
-.note{width:100%;border:0;background:none;outline:none;resize:none;font-size:17px;padding:11px 16px;min-height:84px;color:var(--label);display:block}
+.note{width:100%;border:0;background:none;outline:none;resize:none;font-size:17px;padding:11px 16px;min-height:92px;color:var(--label);display:block}
 .note::placeholder{color:var(--label3)}
 
 /* status chips */
 .st{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;letter-spacing:0;white-space:nowrap}
 .st svg{width:11px;height:11px}
-.st.open{color:var(--st-open);background:var(--st-open-bg)}
+.st.open,.st.confirm{color:var(--st-open);background:var(--st-open-bg)}
 .st.sent{color:var(--st-sent);background:var(--st-sent-bg)}
 .st.paid{color:var(--st-paid);background:var(--st-paid-bg)}
-.st.running{color:var(--label2);background:var(--fill)}
+.st.running,.st.noacc{color:var(--label2);background:var(--fill)}
+.st.planned{color:var(--tint);background:var(--tint-bg)}
 
 /* ---------- dashboard ---------- */
 .banner{display:flex;gap:12px;align-items:flex-start;margin:10px 16px 0;padding:13px 14px;background:var(--card);border-radius:14px}
@@ -202,6 +221,7 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 .hero-l{font-size:15px;font-weight:600;color:rgba(255,255,255,.72);letter-spacing:-.24px}
 .hero-amt{font-size:48px;line-height:1.08;font-weight:700;letter-spacing:-.4px;margin:6px 0 4px}
 .hero-sub{font-size:15px;color:rgba(255,255,255,.72);letter-spacing:-.24px}
+.hero-plan{margin-top:6px;font-size:13px;color:rgba(255,255,255,.85);letter-spacing:-.08px}
 .hero-delta{display:inline-flex;align-items:center;gap:5px;margin-top:12px;padding:4px 10px;border-radius:12px;background:rgba(255,255,255,.14);font-size:13px;font-weight:600;letter-spacing:-.08px}
 .hero-delta b.up{color:#30D158} .hero-delta b.down{color:#FF6961}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 16px 0}
@@ -222,6 +242,15 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 .goal-v{font-size:15px;color:var(--label2);margin-top:2px;letter-spacing:-.24px}
 .goal-m{font-size:13px;color:var(--label2);margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 14px;letter-spacing:-.08px}
 .goal-m b{color:var(--label);font-weight:600}
+.goal-m .full{flex-basis:100%}
+.pot{margin:0 16px;background:var(--card);border-radius:14px;padding:14px 16px 4px}
+.pot-top{display:flex;gap:12px;align-items:flex-start}
+.pot-l{font-size:13px;font-weight:600;color:var(--label2);letter-spacing:-.08px}
+.pot-v{font-size:28px;font-weight:700;margin-top:1px;letter-spacing:0}
+.pot-s{font-size:13px;color:var(--label2);letter-spacing:-.08px}
+.pot-rows{margin-top:10px}
+.pot-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;font-size:15px;letter-spacing:-.24px;box-shadow:inset 0 .5px 0 var(--sep);width:100%;color:var(--label)}
+.pot-row b{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
 .chart-card{margin:0 16px;background:var(--card);border-radius:14px;padding:12px 14px 14px}
 .chart-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px}
 .chart-head .mid{text-align:center;min-width:0}
@@ -231,8 +260,10 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 .chart-wrap{position:relative;margin-top:8px}
 #chart{display:block;width:100%;height:200px;touch-action:pan-y;cursor:crosshair}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;font-size:13px;color:var(--label2);letter-spacing:-.08px}
-.legend span{display:inline-flex;align-items:center;gap:6px;text-transform:capitalize}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend span::first-letter{text-transform:uppercase}
 .legend i{width:14px;height:3px;border-radius:2px;background:var(--k)}
+.legend i.dash{background:repeating-linear-gradient(90deg,var(--k) 0 5px,transparent 5px 8px)}
 .stack{display:flex;gap:2px;height:8px;margin-top:16px;border-radius:4px;overflow:hidden}
 .stack i{display:block;height:100%;background:var(--c);min-width:3px}
 .brk{margin-top:8px}
@@ -242,7 +273,7 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 .brk-row .v{font-variant-numeric:tabular-nums}
 .brk-row .p{width:40px;text-align:right;color:var(--label2);font-size:13px;font-variant-numeric:tabular-nums}
 
-/* ---------- facturen ---------- */
+/* ---------- facturen & detail ---------- */
 .mini3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 16px 14px}
 .mini{background:var(--card);border-radius:12px;padding:10px 11px;text-align:left;border:1.5px solid transparent}
 .mini.on{border-color:var(--tint)}
@@ -250,14 +281,13 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 .mini span i{width:8px;height:8px;border-radius:4px;background:var(--c);flex:none}
 .mini b{display:block;font-size:17px;font-weight:700;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0}
 .d-head{text-align:center;padding:14px 16px 0}
-.d-head .ic{width:60px;height:60px;border-radius:14px;margin:0 auto 10px}
+.d-head .ic{width:60px;height:60px;border-radius:14px;margin:0 auto 10px;font-size:26px}
 .d-head .ic svg{width:34px;height:34px}
 .d-client{font-size:22px;font-weight:700;letter-spacing:.35px}
 .d-month{font-size:15px;color:var(--label2);margin-top:2px;letter-spacing:-.24px}
 .d-amt{font-size:48px;font-weight:700;margin:8px 0 8px;letter-spacing:-.4px}
 .d-actions{display:flex;flex-direction:column;gap:10px;margin-top:26px}
-
-/* ---------- instellingen ---------- */
+.page-inner{max-width:680px;margin:0 auto}
 .profile{display:flex;align-items:center;gap:14px;padding:14px 16px}
 .profile img{width:60px;height:60px;border-radius:14px;flex:none}
 .profile b{font-size:20px;font-weight:600;letter-spacing:.38px}
@@ -270,19 +300,18 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 /* ---------- tab bar ---------- */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;height:calc(49px + var(--sab));
   padding:0 var(--sar) var(--sab) var(--sal);background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 -.5px 0 var(--bar-sep)}
-.tab{position:relative;flex:1;max-width:130px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0;padding-top:5px;color:var(--gray);font-size:10px;font-weight:500;letter-spacing:.1px;text-align:center}
+.tab{position:relative;flex:1;max-width:130px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:5px;color:var(--gray);font-size:10px;font-weight:500;letter-spacing:.1px;text-align:center}
 .tab i{display:block;width:28px;height:28px} .tab svg{width:28px;height:28px;fill:currentColor}
 .tab.on{color:var(--tint)}
 .badge{position:absolute;top:2px;left:calc(50% + 7px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--red);color:#fff;font-size:12px;font-weight:600;line-height:18px;text-align:center;font-style:normal;letter-spacing:0}
 
-/* ---------- pushed page ---------- */
-.page{position:fixed;inset:0;z-index:25;background:var(--bg);transform:translateX(100%);visibility:hidden;display:flex;flex-direction:column;
-  box-shadow:-8px 0 28px rgba(0,0,0,.14);touch-action:pan-y;transition:transform .45s var(--ease),visibility 0s linear .45s}
-.page.on{transform:none;visibility:visible;transition:transform .45s var(--ease),visibility 0s}
+/* ---------- gestapelde pagina's ---------- */
+.page{position:fixed;inset:0;background:var(--bg);transform:translateX(100%);display:flex;flex-direction:column;box-shadow:-8px 0 28px rgba(0,0,0,.14);touch-action:pan-y;transition:transform .45s var(--ease)}
+.page.on{transform:none}
+.page.on.behind{transform:translateX(-26%)}
 .page-nav{flex:none;position:relative;height:calc(44px + var(--sat));padding:var(--sat) max(6px,var(--sar)) 0 max(6px,var(--sal));display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
   background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 .5px 0 var(--bar-sep);z-index:2}
 .page-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:calc(49px + var(--sab) + 30px)}
-.page-inner{max-width:680px;margin:0 auto}
 
 /* ---------- sheet ---------- */
 .scrim{position:fixed;inset:0;z-index:40;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .35s}
@@ -307,7 +336,7 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 .form-err{text-align:center;font-size:13px;color:var(--label2);margin:10px 32px 0;min-height:18px;letter-spacing:-.08px}
 .form-err.bad{color:var(--red)}
 
-/* ---------- action sheet / alert / HUD ---------- */
+/* ---------- action sheet / alert / HUD / toast ---------- */
 .as-ov{position:fixed;inset:0;z-index:60}
 .as-bg{position:absolute;inset:0;background:rgba(0,0,0,.35);opacity:0;transition:opacity .3s}
 .as{position:absolute;left:8px;right:8px;bottom:calc(8px + var(--sab));max-width:560px;margin:0 auto;transform:translateY(130%);transition:transform .4s var(--ease)}
@@ -338,13 +367,18 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
   opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 10px 40px rgba(0,0,0,.12)}
 .hud.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .hud svg{width:44px;height:44px;margin:0 auto 8px;color:var(--label2)}
+.toast{position:fixed;left:12px;right:12px;bottom:calc(49px + var(--sab) + 10px);z-index:35;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:14px;
+  background:var(--pop);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 8px 30px rgba(0,0,0,.18);transform:translateY(160%);opacity:0;transition:transform .35s var(--ease),opacity .25s;pointer-events:none}
+.toast.on{transform:none;opacity:1;pointer-events:auto}
+.toast span{flex:1;font-size:15px;letter-spacing:-.24px}
+.toast button{color:var(--tint);font-weight:600;font-size:15px;letter-spacing:-.24px}
 @media (prefers-reduced-motion: reduce){*,*::before{transition-duration:.01s!important;animation:none!important}}
 </style>
 </head>
 <body>
 
 <header class="navbar" id="navbar">
-  <div class="nb-left" id="nbLeft"></div>
+  <div class="nb-left"></div>
   <div class="nb-title" id="nbTitle">Overzicht</div>
   <div class="nb-right" id="nbRight"></div>
 </header>
@@ -355,10 +389,15 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
     <div class="lt"><div class="lt-cap" id="dashDate"></div><div class="lt-row"><h1>Overzicht</h1><img class="avatar" data-logo alt="Thorax"></div></div>
     <div id="banners"></div>
     <div class="hero" id="hero"></div>
-    <button class="btn filled" data-act="add" style="margin-top:12px"><span data-icon="plus"></span>Werkdag toevoegen</button>
+    <div class="btn-row">
+      <button class="btn filled" data-act="add"><span data-icon="plus"></span>Werkdag</button>
+      <button class="btn tinted" data-act="plan"><span data-icon="cal"></span>Plan job</button>
+    </div>
+    <div id="planSec"></div>
     <div class="tiles" id="tiles"></div>
     <div class="sec-h">Doel</div>
     <div class="goal" id="goalCard" data-act="goal" role="button" tabindex="0"></div>
+    <div id="potSec"></div>
     <div class="sec-h">Inkomsten</div>
     <div class="chart-card">
       <div class="chart-head">
@@ -398,7 +437,7 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
   <!-- INSTELLINGEN -->
   <section class="view" id="v-set" aria-label="Instellingen">
     <div class="lt"><div class="lt-row"><h1>Instellingen</h1></div></div>
-    <div class="group" style="margin-top:8px"><div class="profile"><img data-logo alt=""><div><b>Thorax</b><span>Finance app · versie 2.0</span><span id="profStats"></span></div></div></div>
+    <div class="group" style="margin-top:8px"><div class="profile"><img data-logo alt=""><div><b>Thorax</b><span>Finance app · versie 3.0</span><span id="profStats"></span></div></div></div>
 
     <div class="sec-h">Tarieven</div>
     <div class="group icons">
@@ -406,6 +445,12 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
       <label class="cell"><span class="ic" style="--c:var(--blue)" data-icon="car"></span><span class="cell-main">Km-vergoeding</span><span class="fld"><em>€</em><input id="sKm" inputmode="decimal" enterkeyhint="done" autocomplete="off"></span></label>
     </div>
     <div class="sec-f">Geldt voor nieuwe werkdagen. Bestaande werkdagen en facturen behouden hun eigen tarief.</div>
+
+    <div class="sec-h" id="potSet">Belastingpot</div>
+    <div class="group icons">
+      <label class="cell"><span class="ic" style="--c:var(--green)">%</span><span class="cell-main">Opzij zetten</span><span class="fld"><input id="sPct" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="uit"><em>%</em></span></label>
+    </div>
+    <div class="sec-f">Welk deel van wat je ontvangt zet je opzij voor belastingen en sociale bijdragen? Gebruik het percentage dat Accountable of je boekhouder je aanraadt. De pot rekent alleen met facturen die in Accountable staan. Laat leeg om hem uit te zetten.</div>
 
     <div class="sec-h" id="goalSec">Doel</div>
     <div class="group">
@@ -418,7 +463,7 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
 
     <div class="sec-h">Opdrachtgevers</div>
     <div class="group icons" id="clientList"></div>
-    <div class="sec-f">Tik om te hernoemen. Veeg naar links om te verwijderen.</div>
+    <div class="sec-f">Tik op een opdrachtgever om de naam te wijzigen of te kiezen of je per maand of per opdracht factureert.</div>
 
     <div class="sec-h">Weergave</div>
     <div class="seg" id="themeSeg" style="--n:3">
@@ -431,23 +476,14 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
     <div class="group icons">
       <button class="cell link" data-act="export"><span class="ic" style="--c:var(--blue)" data-icon="up"></span><span class="cell-main"><span class="cell-t" style="display:block">Maak back-up</span><span class="cell-s" style="display:block" id="backupInfo"></span></span><i class="chev" data-icon="chev"></i></button>
       <button class="cell link" data-act="import"><span class="ic" style="--c:var(--tint)" data-icon="down"></span><span class="cell-main cell-t">Zet back-up terug</span><i class="chev" data-icon="chev"></i></button>
+      <button class="cell link" data-act="open-trash"><span class="ic" style="--c:var(--gray)" data-icon="trash"></span><span class="cell-main cell-t">Recent verwijderd</span><span class="cell-v" id="trashCount"></span><i class="chev" data-icon="chev"></i></button>
       <button class="cell link" data-act="wipe"><span class="ic" style="--c:var(--red)" data-icon="trash"></span><span class="cell-main cell-t danger">Wis alle gegevens</span></button>
     </div>
     <div class="sec-f">Je gegevens staan alleen op dit toestel, niet op GitHub. Maak regelmatig een back-up (bv. naar Bestanden of iCloud Drive).</div>
     <input type="file" id="importFile" accept="application/json,.json" class="hide">
-    <div class="about">Thorax 2.0</div>
+    <div class="about">Thorax 3.0</div>
   </section>
 </main>
-
-<!-- Pushed page: factuurdetail -->
-<div class="page" id="detail" aria-hidden="true">
-  <div class="page-nav">
-    <div class="nb-left"><button class="nb-back" data-act="back"><span data-icon="back"></span><span>Facturen</span></button></div>
-    <div class="nb-title show" id="dTitle"></div>
-    <div class="nb-right"><button class="nb-btn" data-act="share-inv" aria-label="Deel overzicht"><span data-icon="up"></span></button></div>
-  </div>
-  <div class="page-body" id="detailBody"></div>
-</div>
 
 <nav class="tabbar" role="tablist" aria-label="Hoofdmenu">
   <button class="tab on" data-act="tab" data-tab="dash" role="tab" aria-selected="true"><i data-tabicon="dash"></i><span>Overzicht</span></button>
@@ -456,7 +492,7 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
   <button class="tab" data-act="tab" data-tab="set" role="tab" aria-selected="false"><i data-tabicon="set"></i><span>Instellingen</span></button>
 </nav>
 
-<!-- Sheet: werkdag toevoegen / bewerken -->
+<!-- Sheet: werkdag toevoegen / plannen / wijzigen / bevestigen -->
 <div class="scrim" id="scrim" data-act="sheet-cancel"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
   <div class="sheet-top" id="sheetTop">
@@ -470,8 +506,9 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
   <div class="sheet-body" id="sheetBody">
     <div class="group" style="margin-top:8px">
       <label class="cell"><span class="cell-main">Datum</span><span class="pick"><span class="pv"></span><input type="date" id="fDate"></span></label>
-      <label class="cell pickrow"><span class="cell-main">Opdrachtgever</span><span class="pv2" id="fClientV"></span><i class="ud" data-icon="updown"></i><select id="fClient" aria-label="Opdrachtgever"></select></label>
+      <label class="cell pickrow"><span class="cell-main">Opdrachtgever</span><span class="pv2"></span><i class="ud" data-icon="updown"></i><select id="fClient" aria-label="Opdrachtgever"></select></label>
     </div>
+    <div class="sec-f" id="dateInfo"></div>
     <div class="seg" id="fType" style="--n:2;margin-top:22px">
       <button data-act="ftype" data-t="uren">Op uren</button>
       <button data-act="ftype" data-t="gig">Vaste prijs</button>
@@ -480,7 +517,7 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
       <div class="group" style="margin-top:22px">
         <label class="cell"><span class="cell-main">Start</span><span class="pick"><span class="pv"></span><input type="time" id="fStart"></span></label>
         <label class="cell"><span class="cell-main">Einde</span><span class="pick"><span class="pv"></span><input type="time" id="fEnd"></span></label>
-        <label class="cell pickrow"><span class="cell-main">Pauze</span><span class="pv2" id="fBreakV"></span><i class="ud" data-icon="updown"></i><select id="fBreak" aria-label="Pauze"></select></label>
+        <label class="cell pickrow"><span class="cell-main">Pauze</span><span class="pv2"></span><i class="ud" data-icon="updown"></i><select id="fBreak" aria-label="Pauze"></select></label>
         <label class="cell"><span class="cell-main">Uurtarief</span><span class="fld"><em>€</em><input id="fRate" inputmode="decimal" enterkeyhint="done" autocomplete="off"></span></label>
       </div>
       <div class="sec-f" id="hoursInfo"></div>
@@ -495,19 +532,25 @@ body.pushed main,body.pushed #navbar{transform:translateX(-26%)}
       <label class="cell"><span class="cell-main">Kilometers</span><span class="fld"><input id="fKm" inputmode="decimal" enterkeyhint="done" placeholder="0" autocomplete="off"><em>km</em></span></label>
     </div>
     <div class="sec-f" id="kmInfo"></div>
-    <div class="group" style="margin-top:22px"><textarea class="note" id="fNote" rows="2" placeholder="Notitie (optioneel)"></textarea></div>
+    <div class="sec-h">Beschrijving</div>
+    <div class="group"><textarea class="note" id="fNote" rows="3" placeholder="Wat heb je gedaan? Bv. opbouw podium, festival X"></textarea></div>
+    <div class="group" style="margin-top:22px">
+      <label class="cell"><span class="cell-main">Factureren via Accountable</span><span class="switch"><input type="checkbox" id="fAcc" role="switch"><i></i></span></label>
+    </div>
+    <div class="sec-f">Zet uit als je deze job niet in Accountable factureert. Hij telt dan mee voor wat je verdiende, maar niet voor je facturen en je belastingpot.</div>
     <div class="sum" id="sum"></div>
     <div class="form-err" id="formErr"></div>
     <button class="btn plain danger hide" id="deleteBtn" data-act="sheet-delete" style="margin-top:18px">Verwijder werkdag</button>
   </div>
 </div>
 
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastText"></span><button data-act="undo">Ongedaan maken</button></div>
 <div class="hud" id="hud" role="status" aria-live="polite"></div>
 
 <script>
 "use strict";
 /* ================= basis ================= */
-const KEY='djwerk_v1', VERSION='2.0';
+const KEY='djwerk_v1', VERSION='3.0', TRASH_DAYS=30;
 const LOGO=(document.querySelector('link[rel="apple-touch-icon"]')||{}).href||'';
 const IOS=/iP(hone|ad|od)/.test(navigator.platform)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -540,7 +583,7 @@ const ICON={
   plane:sv(`<path ${L_} stroke-width="2.1" d="M20.5 3.5L3.5 10.8l6.8 2.9 2.9 6.8zM10.3 13.7l5-5"/>`),
   mail:sv(`<rect ${L_} stroke-width="1.9" x="3" y="5.5" width="18" height="13" rx="2.5"/><path ${L_} stroke-width="1.9" d="M3.8 7.2L12 13l8.2-5.8"/>`),
   cal:sv(`<rect ${L_} stroke-width="1.9" x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path ${L_} stroke-width="1.9" d="M3.5 9.5h17M8 3v3.5M16 3v3.5"/>`),
-  target:sv(`<circle ${L_} stroke-width="1.9" cx="12" cy="12" r="8.5"/><circle ${L_} stroke-width="1.9" cx="12" cy="12" r="4.6"/><circle fill="currentColor" cx="12" cy="12" r="1.6"/>`),
+  minus:sv(`<path ${L_} stroke-width="2.4" d="M6 12h12"/>`),
 };
 const TABI={
   dash:sv(`<rect x="4" y="15" width="5" height="9" rx="1.6"/><rect x="11.5" y="9" width="5" height="15" rx="1.6"/><rect x="19" y="4" width="5" height="20" rx="1.6"/>`,28),
@@ -553,7 +596,7 @@ const CHEV=`<i class="chev">${ICON.chev}</i>`;
 /* ================= getallen & datums ================= */
 function num(v){
   if(typeof v==='number') return Number.isFinite(v)?v:0;
-  let s=String(v??'').replace(/[€\s ]/g,'');
+  let s=String(v??'').replace(/[€%\s ]/g,'');
   if(!s) return 0;
   if(s.includes(',')) s=s.replace(/\./g,'').replace(',','.');
   else if(/^-?[1-9]\d{0,2}(\.\d{3})+$/.test(s)) s=s.replace(/\./g,'');
@@ -565,12 +608,15 @@ const EUR0=new Intl.NumberFormat('nl-BE',{style:'currency',currency:'EUR',maximu
 const money=v=>EUR.format(v||0);
 const money0=v=>EUR0.format(Math.round(v||0));
 const fmtNum=(v,d=2)=>new Intl.NumberFormat('nl-BE',{minimumFractionDigits:0,maximumFractionDigits:d}).format(v||0);
-const fmtAmt=v=>Number.isInteger(v||0)?fmtNum(v):new Intl.NumberFormat('nl-BE',{minimumFractionDigits:2,maximumFractionDigits:2}).format(v); // 26 → "26", 28.5 → "28,50"
+const fmt2=v=>new Intl.NumberFormat('nl-BE',{minimumFractionDigits:2,maximumFractionDigits:2}).format(v||0);
+const fmtAmt=v=>Number.isInteger(v||0)?fmtNum(v):fmt2(v); // 26 → "26", 28.5 → "28,50"
+const fmtDec=min=>fmt2((min||0)/60); // 450 min → "7,50"
 const pad=n=>String(n).padStart(2,'0');
 const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 const todayStr=()=>ymd(new Date());
 const curMonth=()=>todayStr().slice(0,7);
 const parseD=s=>{const p=String(s).split('-').map(Number);return new Date(p[0],(p[1]||1)-1,p[2]||1);};
+const addDays=(s,n)=>{const p=s.split('-').map(Number);return ymd(new Date(p[0],p[1]-1,p[2]+n));};
 const dim=ym=>{const p=ym.split('-').map(Number);return new Date(p[0],p[1],0).getDate();};
 const addMonths=(ym,n)=>{const p=ym.split('-').map(Number);const d=new Date(p[0],p[1]-1+n,1);return `${d.getFullYear()}-${pad(d.getMonth()+1)}`;};
 const isLastDay=()=>{const d=new Date();return d.getDate()===dim(ymd(d).slice(0,7));};
@@ -579,19 +625,36 @@ const clean=s=>s.replace(/\./g,'');
 const monthName=ym=>parseD(ym+'-01').toLocaleDateString('nl-BE',{month:'long',year:'numeric'});
 const monthOnly=ym=>parseD(ym+'-01').toLocaleDateString('nl-BE',{month:'long'});
 const dShort=s=>clean(parseD(s).toLocaleDateString('nl-BE',{weekday:'short',day:'numeric',month:'short'}));
+const dWeek=s=>clean(parseD(s).toLocaleDateString('nl-BE',{weekday:'short',day:'numeric',month:'long'}));
 const dMed=s=>clean(parseD(s).toLocaleDateString('nl-BE',{day:'numeric',month:'short',year:'numeric'}));
 const dDay=s=>parseD(s).toLocaleDateString('nl-BE',{weekday:'long',day:'numeric',month:'long'});
+const dLongY=s=>parseD(s).toLocaleDateString('nl-BE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const relDay=s=>{const d=daysBetween(todayStr(),s);return d===0?'vandaag':d===-1?'gisteren':d===1?'morgen':dShort(s);};
 const toMin=t=>{const m=/^(\d{1,2}):(\d{2})/.exec(t||'');return m?(+m[1])*60+(+m[2]):null;};
 const fmtH=min=>{min=Math.max(0,Math.round(min||0));const h=Math.floor(min/60),m=min%60;return m?`${h}u${pad(m)}`:`${h}u`;};
 const fmtMin=m=>!m?'Geen':m<60?`${m} min`:(m%60?`${Math.floor(m/60)}u${pad(m%60)}`:`${m/60}u`);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const splitKey=k=>{const i=k.lastIndexOf('|');return [k.slice(0,i),k.slice(i+1)];};
 
 /* ================= opslag & migratie ================= */
 function defGoal(){const t=new Date();return {label:'Mijn doel',amount:5000,start:ymd(new Date(t.getFullYear(),t.getMonth(),1)),end:ymd(new Date(t.getFullYear(),t.getMonth()+3,0))};}
-const DEF_SETTINGS={hourly:26,km:0.42,clients:['Dekasound','La Roy','DJ'],theme:'auto',colors:{},lastBackup:null,backupSnooze:null};
+const DEF_SETTINGS={hourly:26,km:0.42,clients:['Dekasound','La Roy','DJ'],theme:'auto',colors:{},cycle:{},reservePct:null,lastBackup:null,backupSnooze:null};
 const STATUSES=['open','sent','paid'];
+function migEntry(e,s){
+  if(!e||!/^\d{4}-\d{2}-\d{2}/.test(String(e.date||''))) return null;
+  const o={id:String(e.id||uid()),date:String(e.date).slice(0,10),client:String(e.client||s.clients[0]).replace(/\|/g,'/'),type:e.type==='gig'?'gig':'uren',
+    start:e.start||'',end:e.end||'',breakMin:Math.max(0,Math.round(num(e.breakMin))),fee:num(e.fee),km:Math.max(0,num(e.km)),note:String(e.note||''),
+    rate:(e.rate!=null&&e.rate!=='')?num(e.rate):s.hourly,kmRate:(e.kmRate!=null&&e.kmRate!=='')?num(e.kmRate):s.km,
+    planned:e.planned===true,inAcc:e.inAcc!==false};
+  if(e.hours!=null&&!(o.start&&o.end)) o.hours=num(e.hours);
+  if(e.createdAt) o.createdAt=e.createdAt;
+  return o;
+}
+function migStatus(v){
+  const o=typeof v==='string'?{s:v}:v;
+  if(!o||!STATUSES.includes(o.s)||o.s==='open') return null;
+  return {s:o.s,sentAt:o.sentAt||null,paidAt:o.paidAt||null,amount:(o.amount!=null&&o.amount!=='')?num(o.amount):null};
+}
 function migrate(d){
   d=(d&&typeof d==='object')?d:{};
   const s=Object.assign(clone(DEF_SETTINGS),d.settings||{});
@@ -600,43 +663,56 @@ function migrate(d){
   if(!s.clients.length) s.clients=clone(DEF_SETTINGS.clients);
   if(!['auto','light','dark'].includes(s.theme)) s.theme='auto';
   if(!s.colors||typeof s.colors!=='object') s.colors={};
-  const entries=(Array.isArray(d.entries)?d.entries:[]).filter(e=>e&&/^\d{4}-\d{2}-\d{2}/.test(String(e.date||''))).map(e=>{
-    const o={id:String(e.id||uid()),date:String(e.date).slice(0,10),client:String(e.client||s.clients[0]).replace(/\|/g,'/'),type:e.type==='gig'?'gig':'uren',
-      start:e.start||'',end:e.end||'',breakMin:Math.max(0,Math.round(num(e.breakMin))),fee:num(e.fee),km:Math.max(0,num(e.km)),note:String(e.note||''),
-      rate:(e.rate!=null&&e.rate!=='')?num(e.rate):s.hourly,kmRate:(e.kmRate!=null&&e.kmRate!=='')?num(e.kmRate):s.km};
-    if(e.hours!=null&&!(o.start&&o.end)) o.hours=num(e.hours);
-    if(e.createdAt) o.createdAt=e.createdAt;
-    return o;
-  });
-  const status={};
-  Object.entries(d.status||{}).forEach(([k,v])=>{
-    if(typeof v==='string'&&STATUSES.includes(v)){ if(v!=='open') status[k]={s:v}; }
-    else if(v&&STATUSES.includes(v.s)&&v.s!=='open') status[k]={s:v.s,sentAt:v.sentAt||null,paidAt:v.paidAt||null};
-  });
+  if(!s.cycle||typeof s.cycle!=='object') s.cycle={};
+  s.reservePct=(s.reservePct==null||s.reservePct==='')?null:Math.min(100,Math.max(0,num(s.reservePct)));
+  const entries=(Array.isArray(d.entries)?d.entries:[]).map(e=>migEntry(e,s)).filter(Boolean);
+  const cut=Date.now()-TRASH_DAYS*864e5;
+  const trash=(Array.isArray(d.trash)?d.trash:[]).filter(t=>t&&t.e&&Date.parse(t.at)>cut).map(t=>({e:migEntry(t.e,s),at:t.at,st:t.st?migStatus(t.st):null})).filter(t=>t.e);
+  const status={}; Object.entries(d.status||{}).forEach(([k,v])=>{ const o=migStatus(v); if(o) status[k]=o; });
   const goal=Object.assign(defGoal(),d.goal||{}); goal.amount=num(goal.amount);
-  const st={v:2,settings:s,entries,status,goal};
-  ensureColors(st);
+  const st={v:3,settings:s,entries,status,goal,trash};
+  ensureClients(st); normalizeStatus(st);
   return st;
 }
-function ensureColors(st){
+function ensureClients(st){
   const s=st.settings, used=Object.values(s.colors);
-  s.clients.forEach(c=>{ if(s.colors[c]==null){ const counts=[0,1,2,3,4].map(i=>used.filter(u=>u===i).length); const i=counts.indexOf(Math.min(...counts)); s.colors[c]=i; used.push(i); } });
+  s.clients.forEach(c=>{
+    if(s.colors[c]==null){ const counts=[0,1,2,3,4].map(i=>used.filter(u=>u===i).length); const i=counts.indexOf(Math.min(...counts)); s.colors[c]=i; used.push(i); }
+    if(!s.cycle[c]) s.cycle[c]=/\bdj\b/i.test(c)?'job':'month'; // DJ factureer je dezelfde dag, per opdracht
+  });
+}
+/* Factuursleutels: per maand "Klant|2026-09", per opdracht "Klant|#id".
+   Zet statussen om als een klant van facturatie wisselt en ruimt statussen zonder werkdagen op. */
+function normalizeStatus(st){
+  const R={open:0,sent:1,paid:2}, old=st.status, out={};
+  const cyc=c=>st.settings.cycle[c]||'month';
+  const inv=st.entries.filter(e=>!e.planned&&e.inAcc!==false);
+  for(const e of inv){
+    const c=e.client, mo=e.date.slice(0,7), jk=`${c}|#${e.id}`, mk=`${c}|${mo}`;
+    if(cyc(c)==='job'){ const v=old[jk]||old[mk]; if(v) out[jk]=Object.assign({},v); }
+    else if(!(mk in out)){
+      let v=old[mk];
+      if(!v){ const js=inv.filter(x=>x.client===c&&x.date.startsWith(mo)).map(x=>old[`${c}|#${x.id}`]); if(js.length&&js.every(Boolean)) v=js.reduce((a,b)=>R[b.s]<R[a.s]?b:a); }
+      if(v) out[mk]=Object.assign({},v);
+    }
+  }
+  st.status=out;
 }
 function load(){
   try{
     const raw=localStorage.getItem(KEY);
     if(raw){
-      // eenmalige veiligheidskopie van de oude (v1) gegevens vóór migratie
-      if(!/"v":2/.test(raw)&&!localStorage.getItem(KEY+'_v1kopie')) localStorage.setItem(KEY+'_v1kopie',raw);
+      // eenmalige veiligheidskopieën vóór een migratie
+      if(!/"v":\s*[23]/.test(raw)&&!localStorage.getItem(KEY+'_v1kopie')) localStorage.setItem(KEY+'_v1kopie',raw);
+      if(/"v":\s*2[,}]/.test(raw)&&!localStorage.getItem(KEY+'_v2kopie')) localStorage.setItem(KEY+'_v2kopie',raw);
       return migrate(JSON.parse(raw));
     }
   }catch(e){}
   return migrate({});
 }
 function save(){
-  // status van facturen zonder werkdagen opruimen (anders blijft een lege maand "betaald")
-  const keys=new Set(state.entries.map(e=>e.client+'|'+e.date.slice(0,7)));
-  for(const k of Object.keys(state.status)) if(!keys.has(k)) delete state.status[k];
+  normalizeStatus(state);
+  const cut=Date.now()-TRASH_DAYS*864e5; state.trash=state.trash.filter(t=>Date.parse(t.at)>cut);
   try{ localStorage.setItem(KEY,JSON.stringify(state)); return true; }catch(e){ storageOK=false; return false; }
 }
 function testStorage(){ try{ localStorage.setItem('__thorax','1'); localStorage.removeItem('__thorax'); return true; }catch(e){ return false; } }
@@ -660,39 +736,66 @@ const sortAsc=a=>[...a].sort(cmpEntry), sortDesc=a=>[...a].sort((x,y)=>cmpEntry(
 function clientIdx(c){ const v=state.settings.colors[c]; if(v!=null) return v%5; let h=0; for(const ch of String(c)) h=(h*31+ch.charCodeAt(0))>>>0; return h%5; }
 const cvar=c=>`var(--c${clientIdx(c)})`;
 const corder=c=>{const i=state.settings.clients.indexOf(c);return i<0?999:i;};
+const cyc=c=>state.settings.cycle[c]||'month';
+const isInv=e=>!e.planned&&e.inAcc!==false;
+const invKeyOf=e=>cyc(e.client)==='job'?`${e.client}|#${e.id}`:`${e.client}|${e.date.slice(0,7)}`;
+const typeIcon=e=>e.type==='gig'?ICON.phones:ICON.speaker;
 function groups(){
   const m=new Map();
   for(const e of state.entries){
-    const mo=e.date.slice(0,7), k=e.client+'|'+mo;
-    let g=m.get(k);
-    if(!g){ g={key:k,client:e.client,month:mo,entries:[],c:0,wc:0,kc:0,fc:0,min:0,km:0,gigs:0}; m.set(k,g); }
+    if(!isInv(e)) continue;
+    const k=invKeyOf(e); let g=m.get(k);
+    if(!g){ g={key:k,client:e.client,month:e.date.slice(0,7),date:e.date,job:k.includes('|#'),entries:[],c:0,wc:0,kc:0,fc:0,min:0,km:0,gigs:0}; m.set(k,g); }
     const p=partsC(e); g.entries.push(e); g.c+=p.w+p.k; g.kc+=p.k; g.km+=num(e.km);
     if(e.type==='gig'){ g.fc+=p.w; g.gigs++; } else { g.wc+=p.w; g.min+=billMin(e); }
   }
   return [...m.values()];
 }
 const stOf=k=>state.status[k]||{s:'open'};
-function setStatus(k,s){
-  const cur=stOf(k), t=todayStr();
-  if(s==='open') delete state.status[k];
+function setStatus(k,s,amount){
+  const cur=stOf(k), t=todayStr(), amt=amount!==undefined?amount:(cur.amount??null);
   // alleen een verzenddatum invullen als de factuur nu pas verstuurd wordt (oude statussen hebben geen datum)
-  else if(s==='sent') state.status[k]={s:'sent',sentAt:cur.s==='open'?t:(cur.sentAt||null),paidAt:null};
-  else if(s==='paid') state.status[k]={s:'paid',sentAt:cur.s==='open'?t:(cur.sentAt||null),paidAt:cur.paidAt||t};
+  if(s==='open') delete state.status[k];
+  else if(s==='sent') state.status[k]={s:'sent',sentAt:cur.s==='open'?t:(cur.sentAt||null),paidAt:null,amount:amt};
+  else if(s==='paid') state.status[k]={s:'paid',sentAt:cur.s==='open'?t:(cur.sentAt||null),paidAt:cur.paidAt||t,amount:amt};
   save();
 }
-function dispSt(g){ const s=stOf(g.key).s; if(s!=='open') return s; const cm=curMonth(); if(g.month>cm||(g.month===cm&&!isLastDay())) return 'running'; return 'open'; }
-const ST={open:{l:'Te factureren',i:'exclam'},running:{l:'Loopt nog',i:'clock'},sent:{l:'Verstuurd',i:'plane'},paid:{l:'Betaald',i:'check'}};
+function dispSt(g){ const s=stOf(g.key).s; if(s!=='open') return s; const cm=curMonth();
+  if(g.job) return g.date>todayStr()?'running':'open';
+  if(g.month>cm||(g.month===cm&&!isLastDay())) return 'running'; return 'open'; }
+const invAmount=g=>{ const st=stOf(g.key); return (st.s!=='open'&&st.amount!=null)?st.amount:g.c/100; };
+const invTitle=g=>g.job?`${g.client} · ${dShort(g.date)}`:`${g.client} · ${monthName(g.month)}`;
+const ST={open:{l:'Te factureren',i:'exclam'},running:{l:'Loopt nog',i:'clock'},sent:{l:'Verstuurd',i:'plane'},paid:{l:'Betaald',i:'check'},
+  planned:{l:'Gepland',i:'cal'},confirm:{l:'Bevestig',i:'exclam'},noacc:{l:'Niet in Accountable',i:'minus'}};
 const stChip=s=>`<span class="st ${s}">${ICON[ST[s].i]}${ST[s].l}</span>`;
+/* regels zoals je ze in Accountable intypt: uren in decimalen per tarief, gigs, kilometers per tarief */
+function accLines(g){
+  const L=[], byRate=new Map(), byKm=new Map();
+  sortAsc(g.entries).forEach(e=>{
+    if(e.type==='gig') L.push({label:`Vaste prijs${e.note?` – ${e.note}`:''}`,qty:`1 ×`,price:num(e.fee),total:r2(num(e.fee)),copy:fmt2(num(e.fee))});
+    else byRate.set(rateOf(e),(byRate.get(rateOf(e))||0)+billMin(e));
+    if(num(e.km)>0) byKm.set(kmRateOf(e),(byKm.get(kmRateOf(e))||0)+num(e.km));
+  });
+  const hl=[]; for(const [r,min] of byRate){ const q=r2(min/60); hl.push({label:g.job?`Prestatie ${dShort(g.date)}`:`Prestaties ${monthName(g.month)}`,qty:`${fmt2(q)} uur`,price:r,total:r2(q*r),copy:fmt2(q),hint:fmtH(min)}); }
+  const kl=[]; for(const [r,km] of byKm){ const q=Math.round(km*10)/10; kl.push({label:'Kilometervergoeding',qty:`${fmtNum(q,1)} km`,price:r,total:r2(q*r),copy:fmtNum(q,1)}); }
+  const lines=[...hl,...L,...kl];
+  return {lines,total:r2(lines.reduce((s,l)=>s+l.total,0))};
+}
 
 /* ================= UI-toestand ================= */
-let tab='dash', chartMonth=curMonth(), invFilter='all', daysClient='all', daysQuery='', detailKey=null, lastDay=todayStr();
+let tab='dash', chartMonth=curMonth(), invFilter='all', daysClient='all', daysQuery='', lastDay=todayStr();
 const scrollPos={};
 const TITLES={dash:'Overzicht',days:'Werkdagen',inv:'Facturen',set:'Instellingen'};
+const sec=t=>`<div class="sec-h">${t}</div>`;
+const grp=(h,cls='')=>`<div class="group ${cls}">${h}</div>`;
+const kv=(l,v)=>`<div class="cell"><span class="cell-main">${l}</span><span class="cell-v">${v}</span></div>`;
 
 function showTab(t){
-  if(detailKey){ closeDetail(t!=='inv'); if(t==='inv'&&tab==='inv') return; }
-  if(t===tab){ window.scrollTo({top:0,behavior:'smooth'}); return; }
-  closeSw();
+  if(t===tab){
+    if(stack.length){ while(stack.length>1) popPage(true); popPage(); return; }
+    window.scrollTo({top:0,behavior:'smooth'}); return;
+  }
+  popAll();
   scrollPos[tab]=window.scrollY; tab=t;
   $$('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+t));
   $$('.tab').forEach(b=>{const on=b.dataset.tab===t;b.classList.toggle('on',on);b.setAttribute('aria-selected',String(on));});
@@ -704,7 +807,6 @@ function updateNav(){
   $('#nbRight').innerHTML=(tab==='dash'||tab==='days')?`<button class="nb-btn" data-act="add" aria-label="Werkdag toevoegen">${ICON.plus}</button>`:'';
 }
 function onScroll(){ $('#navbar').classList.toggle('compact',window.scrollY>34); }
-
 function render(){
   const gs=groups();
   renderBadge(gs);
@@ -712,73 +814,98 @@ function render(){
   else if(tab==='days') renderDays();
   else if(tab==='inv') renderInv(gs);
   else if(tab==='set') renderSet();
-  if(detailKey) renderDetail(gs);
+  renderPages();
 }
-function renderBadge(gs){
-  const n=gs.filter(g=>dispSt(g)==='open').length, b=$('#invBadge');
-  b.textContent=n; b.classList.toggle('hide',!n);
-}
+function renderBadge(gs){ const n=gs.filter(g=>dispSt(g)==='open').length, b=$('#invBadge'); b.textContent=n; b.classList.toggle('hide',!n); }
 const emptyHTML=(ic,t,s,add)=>`<div class="empty">${ICON[ic]}<b>${t}</b><div>${s}</div>${add?`<button class="btn tinted" data-act="add" style="margin:18px auto 0;width:auto;padding:0 22px">${ICON.plus}Werkdag toevoegen</button>`:''}</div>`;
+
+/* ---------- rijen ---------- */
+function entryRow(e){
+  const sub=[dShort(e.date),e.type==='gig'?'Vaste prijs':fmtH(billMin(e)),num(e.km)?`${fmtNum(num(e.km),1)} km`:'',e.inAcc===false?'buiten Accountable':''].filter(Boolean).join(' · ');
+  return `<div class="cell link" data-act="open-entry" data-id="${esc(e.id)}" role="button" tabindex="0"><span class="ic" style="--c:${cvar(e.client)}">${typeIcon(e)}</span><div class="cell-main"><div class="cell-t">${esc(e.client)}</div><div class="cell-s">${sub}</div>${e.note?`<div class="cell-n">${esc(e.note)}</div>`:''}</div><div class="cell-amt">${money(amount(e))}</div>${CHEV}</div>`;
+}
+function planRow(e){
+  const t=todayStr(), due=e.date<=t;
+  const sub=[relDay(e.date),e.type==='gig'?'Vaste prijs':(e.start&&e.end?`${e.start}–${e.end}`:''),e.note].filter(Boolean).join(' · ');
+  return `<div class="cell link" data-act="open-entry" data-id="${esc(e.id)}" role="button" tabindex="0"><span class="ic plan" style="--c:${cvar(e.client)}">${ICON.cal}</span><div class="cell-main"><div class="cell-t">${esc(e.client)}</div><div class="cell-s">${esc(sub)}</div></div>${due?`<button class="pill-btn" data-act="confirm-entry" data-id="${esc(e.id)}">Bevestig</button>`:`<div class="cell-amt muted">${money(amount(e))}</div>`}${CHEV}</div>`;
+}
+/* duidelijke dagregel voor het maandeinde: datum, tijden, pauze, uren, km en de volledige beschrijving */
+function dayRow(e){
+  const t=e.type==='gig'?`Vaste prijs ${money(num(e.fee))}`:`${e.start&&e.end?`${e.start}–${e.end} · `:''}${e.breakMin?`pauze ${fmtMin(e.breakMin)} · `:''}<b>${fmtH(billMin(e))}</b>`;
+  return `<div class="cell link" data-act="open-entry" data-id="${esc(e.id)}" role="button" tabindex="0"><span class="ic" style="--c:${cvar(e.client)}">${typeIcon(e)}</span><div class="cell-main"><div class="cell-t">${dWeek(e.date)}</div><div class="cell-s wrap">${t}${num(e.km)?` · ${fmtNum(num(e.km),1)} km`:''}</div>${e.note?`<div class="desc">${esc(e.note)}</div>`:''}</div><div class="cell-amt">${money(amount(e))}</div>${CHEV}</div>`;
+}
+function invRow(g){
+  const e0=g.entries[0];
+  const sub=g.job?[dShort(g.date),e0.note].filter(Boolean).join(' · '):[g.min?fmtH(g.min):'',g.gigs?`${g.gigs} ${g.gigs===1?'gig':'gigs'}`:'',g.km?`${fmtNum(g.km,0)} km`:''].filter(Boolean).join(' · ');
+  return `<div class="cell link" data-act="open-inv" data-key="${esc(g.key)}" role="button" tabindex="0"><span class="ic" style="--c:${cvar(g.client)}">${ICON.doc}</span><div class="cell-main"><div class="cell-t">${esc(g.client)}</div><div class="cell-s">${esc(sub)}</div></div><div class="inv-r"><div class="cell-amt">${money(invAmount(g))}</div>${stChip(dispSt(g))}</div>${CHEV}</div>`;
+}
 
 /* ================= Overzicht ================= */
 function renderDash(gs){
-  const t=todayStr(), cm=t.slice(0,7), yr=t.slice(0,4), pm=addMonths(cm,-1), dToday=+t.slice(8);
+  const t=todayStr(), cm=t.slice(0,7), yr=t.slice(0,4), pm=addMonths(cm,-1), dT=+t.slice(8);
   $('#dashDate').textContent=dDay(t);
-  let mC=0,mMin=0,mKm=0,yC=0,prevSame=0; const mDays=new Set();
+  let mC=0,mMin=0,mKm=0,yC=0,prevSame=0,planC=0,planN=0; const mDays=new Set();
   for(const e of state.entries){
     const c=ecents(e), mo=e.date.slice(0,7);
+    if(e.planned){ if(mo===cm){ planC+=c; planN++; } continue; }
     if(e.date.startsWith(yr)) yC+=c;
     if(mo===cm){ mC+=c; mMin+=billMin(e); mKm+=num(e.km); mDays.add(e.date); }
-    if(mo===pm&&+e.date.slice(8)<=dToday) prevSame+=c;
+    if(mo===pm&&+e.date.slice(8)<=dT) prevSame+=c;
   }
   const tot={open:0,sent:0,paid:0}; let nOpen=0;
-  gs.forEach(g=>{ const s=stOf(g.key).s; tot[s]+=g.c; if(s==='open') nOpen++; });
+  gs.forEach(g=>{ const s=stOf(g.key).s; tot[s]+=invAmount(g); if(s==='open') nOpen++; });
 
   // meldingen
   const B=[];
   if(!storageOK) B.push({c:'var(--red)',ic:'exclam',t:'Je gegevens worden niet bewaard',s:'Deze browser blokkeert opslag. Open Thorax via tackbruneel.github.io/Thorax in Safari en zet hem op je beginscherm.'});
-  const ready=gs.filter(g=>dispSt(g)==='open').sort((a,b)=>a.month.localeCompare(b.month)||corder(a.client)-corder(b.client));
+  const od=state.entries.filter(e=>e.planned&&e.date<t).sort(cmpEntry);
+  if(od.length) B.push({c:'var(--tint)',ic:'cal',t:od.length===1?'Bevestig je job':`${od.length} jobs wachten op bevestiging`,
+    s:od.slice(0,3).map(e=>`${esc(e.client)} (${relDay(e.date)})`).join(' · '),
+    a:od.length===1?[{l:'Bevestig uren',act:'confirm-entry',id:od[0].id}]:[{l:'Bekijk',act:'tab',tab:'days'}]});
+  const ready=gs.filter(g=>dispSt(g)==='open').sort((a,b)=>a.date.localeCompare(b.date)||corder(a.client)-corder(b.client));
   if(ready.length){
-    const multi=new Set(ready.map(g=>g.month)).size>1;
-    B.push({c:'var(--orange)',ic:'mail',t:isLastDay()&&ready.some(g=>g.month===cm)?'Vandaag is factuurdag':'Facturen klaar om te versturen',
-      s:ready.map(g=>`${esc(g.client)}${multi?` (${monthOnly(g.month).slice(0,3)})`:''} ${money(g.c/100)}`).join(' · '),a:[{l:'Bekijk facturen',act:'go-inv',f:'open'}]});
+    const multi=new Set(ready.filter(g=>!g.job).map(g=>g.month)).size>1;
+    B.push({c:'var(--orange)',ic:'mail',t:isLastDay()&&ready.some(g=>!g.job&&g.month===cm)?'Vandaag is factuurdag':'Facturen klaar om te maken',
+      s:ready.map(g=>`${esc(g.client)}${g.job?` (${dShort(g.date)})`:multi?` (${monthOnly(g.month).slice(0,3)})`:''} ${money(invAmount(g))}`).join(' · '),a:[{l:'Bekijk facturen',act:'go-inv',f:'open'}]});
   }
   if(state.entries.length>=5&&backupDue()) B.push({c:'var(--blue)',ic:'up',t:'Tijd voor een back-up',
     s:state.settings.lastBackup?`Laatste back-up: ${dMed(state.settings.lastBackup)}.`:'Je gegevens staan alleen op deze iPhone.',a:[{l:'Maak back-up',act:'export'},{l:'Later',act:'snooze-backup'}]});
-  $('#banners').innerHTML=B.map(b=>`<div class="banner"><span class="ic" style="--c:${b.c}">${ICON[b.ic]}</span><div style="flex:1;min-width:0"><div class="banner-t">${b.t}</div><div class="banner-s">${b.s}</div>${b.a?`<div class="banner-a">${b.a.map(a=>`<button data-act="${a.act}"${a.f?` data-f="${a.f}"`:''}>${a.l}</button>`).join('')}</div>`:''}</div></div>`).join('');
+  $('#banners').innerHTML=B.map(b=>`<div class="banner"><span class="ic" style="--c:${b.c}">${ICON[b.ic]}</span><div style="flex:1;min-width:0"><div class="banner-t">${b.t}</div><div class="banner-s">${b.s}</div>${b.a?`<div class="banner-a">${b.a.map(a=>`<button data-act="${a.act}"${a.f?` data-f="${a.f}"`:''}${a.id?` data-id="${esc(a.id)}"`:''}${a.tab?` data-tab="${a.tab}"`:''}>${a.l}</button>`).join('')}</div>`:''}</div></div>`).join('');
 
-  // hero
   let delta='';
   if(prevSame>0&&mC>0){ const p=Math.round((mC-prevSame)/prevSame*100); delta=`<div class="hero-delta"><b class="${p>=0?'up':'down'}">${p>=0?'▲':'▼'}</b>${Math.abs(p)}% t.o.v. zelfde periode ${monthOnly(pm)}</div>`; }
   $('#hero').innerHTML=`<svg class="hero-art" viewBox="0 0 120 80" aria-hidden="true"><path d="M6 70L40 40l18 14 44-42M84 12h18v18" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <div class="hero-l">Verdiend in ${monthOnly(cm)}</div>
     <div class="hero-amt rounded">${money(mC/100)}</div>
-    <div class="hero-sub">${mDays.size} ${mDays.size===1?'werkdag':'werkdagen'} · ${fmtH(mMin)} · ${fmtNum(mKm,0)} km</div>${delta}`;
+    <div class="hero-sub">${mDays.size} ${mDays.size===1?'werkdag':'werkdagen'} · ${fmtH(mMin)} · ${fmtNum(mKm,0)} km</div>
+    ${planC?`<div class="hero-plan">+ ${money(planC/100)} gepland (${planN} ${planN===1?'job':'jobs'}) · verwacht ${money((mC+planC)/100)}</div>`:''}${delta}`;
 
-  // tegels
   const tile=(f,c,ic,l,v,s)=>`<button class="tile" ${f?`data-act="go-inv" data-f="${f}"`:'tabindex="-1"'} style="--c:${c}"><span class="tile-top"><i>${ICON[ic]}</i>${l}</span><span class="tile-v rounded">${v}</span><span class="tile-s">${s}</span></button>`;
-  $('#tiles').innerHTML=tile('open','var(--orange)','exclam','Te factureren',money(tot.open/100),`${nOpen} ${nOpen===1?'factuur':'facturen'} nog te versturen`)
-    +tile('sent','var(--gray)','plane','Openstaand',money(tot.sent/100),'verstuurd, wacht op betaling')
-    +tile('paid','var(--green)','check','Ontvangen',money(tot.paid/100),'betaalde facturen')
+  $('#tiles').innerHTML=tile('open','var(--orange)','exclam','Te factureren',money(tot.open),`${nOpen} ${nOpen===1?'factuur':'facturen'} nog te maken`)
+    +tile('sent','var(--gray)','plane','Openstaand',money(tot.sent),'verstuurd, wacht op betaling')
+    +tile('paid','var(--green)','check','Ontvangen',money(tot.paid),'betaalde facturen')
     +tile('','var(--tint)','cal','Dit jaar',money(yC/100),`verdiend in ${yr}`);
 
-  renderGoal();
-  renderChart();
-
-  // recent
-  const rec=sortDesc(state.entries).slice(0,3);
-  $('#recent').innerHTML=rec.length?`<div class="group icons">${rec.map(e=>entryRow(e,false)).join('')}</div>`
-    :`<div class="group"><div class="cell"><span class="cell-main muted">Nog geen werkdagen. Tik op + om te beginnen.</span></div></div>`;
+  renderPlanSec(); renderGoal(); renderPot(); renderChart();
+  const rec=sortDesc(state.entries.filter(e=>!e.planned)).slice(0,3);
+  $('#recent').innerHTML=rec.length?grp(rec.map(entryRow).join(''),'icons'):grp(`<div class="cell"><span class="cell-main muted">Nog geen werkdagen. Tik op + om te beginnen.</span></div>`);
+}
+function renderPlanSec(){
+  const t=todayStr(), P=sortAsc(state.entries.filter(e=>e.planned));
+  if(!P.length){ $('#planSec').innerHTML=''; return; }
+  const due=P.filter(e=>e.date<=t), up=P.filter(e=>e.date>t), show=[...due,...up.slice(0,3)];
+  $('#planSec').innerHTML=`<div class="sec-h"><span>Gepland</span>${show.length<P.length?`<button data-act="tab" data-tab="days">Alle ${P.length}</button>`:''}</div>${grp(show.map(planRow).join(''),'icons')}`;
 }
 function goalInfo(){
-  const g=state.goal, t=todayStr(); let c=0;
-  for(const e of state.entries) if(e.date>=g.start&&e.date<=g.end) c+=ecents(e);
-  const earned=c/100, amt=num(g.amount), pct=amt>0?earned/amt*100:0, remaining=Math.max(0,amt-earned);
+  const g=state.goal, t=todayStr(); let c=0,p=0;
+  for(const e of state.entries){ if(e.date<g.start||e.date>g.end) continue; if(e.planned) p+=ecents(e); else c+=ecents(e); }
+  const earned=c/100, planned=p/100, amt=num(g.amount), pct=amt>0?earned/amt*100:0, remaining=Math.max(0,amt-earned);
   const phase=t<g.start?'before':t>g.end?'ended':'running';
-  return {g,earned,amt,pct,remaining,phase,daysLeft:phase==='running'?daysBetween(t,g.end)+1:0};
+  return {g,earned,planned,amt,pct,remaining,phase,daysLeft:phase==='running'?daysBetween(t,g.end)+1:0};
 }
 function renderGoal(){
   const G=goalInfo(), R=37, C=2*Math.PI*R, p=Math.min(100,Math.max(0,G.pct));
+  const withPlan=G.planned>0&&G.phase!=='ended'&&G.pct<100?`<span class="full">Met je planning: <b>${money(G.earned+G.planned)}</b> · ${G.earned+G.planned>=G.amt?'doel gehaald':`nog ${money(G.amt-G.earned-G.planned)} tekort`}</span>`:'';
   let meta;
   if(G.pct>=100) meta=`<span><b>🎉 Doel behaald!</b></span>${G.phase==='running'?`<span>nog ${G.daysLeft} ${G.daysLeft===1?'dag':'dagen'}</span>`:''}`;
   else if(G.phase==='before') meta=`<span>Start op <b>${dMed(G.g.start)}</b></span><span><b>${money(G.remaining)}</b> nodig</span>`;
@@ -788,49 +915,72 @@ function renderGoal(){
       <circle cx="43" cy="43" r="${R}" fill="none" style="stroke:var(--ring-track)" stroke-width="10"/>
       ${p>0?`<circle cx="43" cy="43" r="${R}" fill="none" stroke="url(#ringGrad)" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C*(1-p/100)).toFixed(2)}"/>`:''}</svg>
       <div class="ring-p rounded">${Math.floor(G.pct)}%</div></div>
-    <div class="goal-main"><div class="goal-t">${esc(G.g.label||'Doel')}</div><div class="goal-v">${money(G.earned)} van ${money(G.amt)}</div><div class="goal-m">${meta}</div></div>${CHEV}`;
+    <div class="goal-main"><div class="goal-t">${esc(G.g.label||'Doel')}</div><div class="goal-v">${money(G.earned)} van ${money(G.amt)}</div><div class="goal-m">${meta}${withPlan}</div></div>${CHEV}`;
   $('#goalCard').setAttribute('aria-label',`${G.g.label}: ${Math.floor(G.pct)}% behaald`);
 }
+/* ---------- belastingpot: alleen wat in Accountable staat ---------- */
+function potInfo(){
+  const yr=todayStr().slice(0,4); let inv=0,paid=0,open=0,noacc=0;
+  groups().forEach(g=>{ if(!g.month.startsWith(yr)) return; const s=stOf(g.key).s, a=invAmount(g);
+    if(s==='sent') inv+=a; else if(s==='paid'){ inv+=a; paid+=a; } else open+=g.c/100; });
+  state.entries.forEach(e=>{ if(!e.planned&&e.inAcc===false&&e.date.startsWith(yr)) noacc+=amount(e); });
+  return {yr,inv:r2(inv),paid:r2(paid),open:r2(open),noacc:r2(noacc),pct:state.settings.reservePct};
+}
+function renderPot(){
+  const P=potInfo();
+  if(P.pct==null){ $('#potSec').innerHTML=sec('Belastingpot')+grp(`<div class="cell link" data-act="goto-pot" role="button" tabindex="0"><span class="ic" style="--c:var(--green)">${ICON.euro}</span><div class="cell-main"><div class="cell-t">Stel je belastingpot in</div><div class="cell-s">Weet hoeveel je opzij moet zetten</div></div>${CHEV}</div>`,'icons'); return; }
+  const set=r2(P.paid*P.pct/100), later=r2((P.inv-P.paid)*P.pct/100);
+  const row=(l,v,act)=>act?`<button class="pot-row" data-act="${act}"><span>${l}</span><b>${v} ›</b></button>`:`<div class="pot-row"><span>${l}</span><b>${v}</b></div>`;
+  $('#potSec').innerHTML=`${sec(`Belastingpot ${P.yr}`)}<div class="pot"><div class="pot-top"><span class="ic" style="--c:var(--green)">${ICON.euro}</span><div><div class="pot-l">Zet opzij (${fmtNum(P.pct,1)}%)</div><div class="pot-v rounded">${money(set)}</div><div class="pot-s">van ${money(P.paid)} ontvangen in ${P.yr}</div></div></div>
+    <div class="pot-rows">${row('Gefactureerd in Accountable',money(P.inv))}${row('Nog te ontvangen',`${money(P.inv-P.paid)}${later?` <span class="muted">(+${money(later)})</span>`:''}`)}${P.open?row('Nog te factureren',money(P.open)):''}${P.noacc?row('Niet in Accountable',money(P.noacc),'open-noacc'):''}</div></div>
+    <div class="sec-f">Rekent alleen met facturen die in Accountable staan. Voor je exacte belastingen en sociale bijdragen blijft Accountable leidend.</div>`;
+}
 
-/* ---------- grafiek: cumulatieve inkomsten van één maand ---------- */
+/* ---------- grafiek: cumulatieve inkomsten van één maand + geplande jobs ---------- */
 const chart={scrub:null,geo:null,drag:false};
 function chartData(ym){
-  const n=dim(ym), daily=new Array(n+1).fill(0);
-  for(const e of state.entries) if(e.date.startsWith(ym)){ const d=+e.date.slice(8,10); if(d>=1&&d<=n) daily[d]+=ecents(e); }
+  const n=dim(ym), daily=new Array(n+1).fill(0), plan=new Array(n+1).fill(0), t=todayStr(), cm=t.slice(0,7), td=+t.slice(8);
+  for(const e of state.entries){
+    if(!e.date.startsWith(ym)) continue; const d=+e.date.slice(8,10); if(d<1||d>n) continue;
+    if(e.planned){ if(ym>cm) plan[d]+=ecents(e); else if(ym===cm) plan[Math.max(d,td)]+=ecents(e); }
+    else daily[d]+=ecents(e);
+  }
   const cum=[0]; for(let d=1;d<=n;d++) cum[d]=cum[d-1]+daily[d];
-  return {n,daily,cum};
+  return {n,daily,cum,plan,planTot:plan.reduce((a,b)=>a+b,0)};
 }
 const lastDayFor=ym=>{const cm=curMonth();return ym===cm?+todayStr().slice(8):ym<cm?dim(ym):0;};
-function minMonth(){ let m=curMonth(); for(const e of state.entries){ const x=e.date.slice(0,7); if(x<m) m=x; } return m; }
+function minMonth(){ let m=curMonth(); for(const e of state.entries){ if(e.planned) continue; const x=e.date.slice(0,7); if(x<m) m=x; } return m; }
+function maxMonth(){ let m=curMonth(); for(const e of state.entries){ if(!e.planned) continue; const x=e.date.slice(0,7); if(x>m) m=x; } return m; }
 function niceStep(x){ if(x<=0) return 100; const p=Math.pow(10,Math.floor(Math.log10(x))), f=x/p; return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*p; }
 const axisLbl=v=>v>=1000?`€ ${fmtNum(v/1000,1)}k`:`€ ${fmtNum(v,0)}`;
 function hexA(c,a){ c=String(c).trim(); if(c[0]==='#'){ let h=c.slice(1); if(h.length===3) h=h.split('').map(x=>x+x).join(''); const n=parseInt(h,16); return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`; } return c; }
 function renderChart(){
-  const cm=curMonth(); if(chartMonth>cm) chartMonth=cm;
-  $('#mPrev').disabled=chartMonth<=minMonth(); $('#mNext').disabled=chartMonth>=cm;
+  if(chartMonth>maxMonth()) chartMonth=maxMonth();
+  $('#mPrev').disabled=chartMonth<=minMonth(); $('#mNext').disabled=chartMonth>=maxMonth();
   chart.scrub=null; setChartHead(null); drawChart();
   const cur=chartData(chartMonth), prevYm=addMonths(chartMonth,-1), prev=chartData(prevYm);
-  $('#legend').innerHTML=`<span><i style="--k:var(--tint)"></i>${monthOnly(chartMonth)}</span>${prev.cum[prev.n]>0?`<span><i style="--k:var(--cmp)"></i>${monthOnly(prevYm)}</span>`:''}`;
-  // verdeling per opdrachtgever
-  const by={}; for(const e of state.entries) if(e.date.startsWith(chartMonth)) by[e.client]=(by[e.client]||0)+ecents(e);
+  $('#legend').innerHTML=`${lastDayFor(chartMonth)?`<span><i style="--k:var(--tint)"></i>${monthOnly(chartMonth)}</span>`:''}${cur.planTot?`<span><i class="dash" style="--k:var(--tint)"></i>gepland</span>`:''}${prev.cum[prev.n]>0?`<span><i style="--k:var(--cmp)"></i>${monthOnly(prevYm)}</span>`:''}`;
+  const by={}; for(const e of state.entries) if(!e.planned&&e.date.startsWith(chartMonth)) by[e.client]=(by[e.client]||0)+ecents(e);
   let rows=Object.entries(by).filter(r=>r[1]>0).sort((a,b)=>corder(a[0])-corder(b[0])||b[1]-a[1]);
   const total=cur.cum[cur.n];
   if(rows.length>5){ const rest=rows.slice(4).reduce((s,r)=>s+r[1],0); rows=rows.slice(0,4).concat([['Overig',rest]]); }
   const col=n=>n==='Overig'?'var(--gray)':cvar(n);
-  // percentages die samen exact 100% zijn (grootste-restmethode)
   const raw=rows.map(r=>r[1]/(total||1)*100), pct=raw.map(Math.floor);
-  raw.map((v,i)=>[v-pct[i],i]).sort((a,b)=>b[0]-a[0]).slice(0,100-pct.reduce((s,v)=>s+v,0)).forEach(([,i])=>pct[i]++);
+  raw.map((v,i)=>[v-pct[i],i]).sort((a,b)=>b[0]-a[0]).slice(0,Math.max(0,100-pct.reduce((s,v)=>s+v,0))).forEach(([,i])=>pct[i]++);
   $('#breakdown').innerHTML=total>0?`<div class="stack" role="img" aria-label="Verdeling per opdrachtgever">${rows.map(r=>`<i style="--c:${col(r[0])};flex:${r[1]}"></i>`).join('')}</div>
-    <div class="brk">${rows.map(r=>`<div class="brk-row"><i style="--c:${col(r[0])}"></i><span class="n">${esc(r[0])}</span><span class="v">${money(r[1]/100)}</span><span class="p">${pct[rows.indexOf(r)]}%</span></div>`).join('')}</div>`
-    :`<div class="sec-f" style="margin:10px 0 0">Nog geen inkomsten in ${monthOnly(chartMonth)}.</div>`;
+    <div class="brk">${rows.map((r,i)=>`<div class="brk-row"><i style="--c:${col(r[0])}"></i><span class="n">${esc(r[0])}</span><span class="v">${money(r[1]/100)}</span><span class="p">${pct[i]}%</span></div>`).join('')}</div>`
+    :`<div class="sec-f" style="margin:10px 0 0">${cur.planTot?`Nog niets verdiend in ${monthOnly(chartMonth)}, wel ${money(cur.planTot/100)} gepland.`:`Nog geen inkomsten in ${monthOnly(chartMonth)}.`}</div>`;
 }
 function setChartHead(d){
-  const ym=chartMonth, cur=chartData(ym);
-  if(!d){ $('#chartHead').innerHTML=`<b>${monthName(ym)}</b><span>${money(cur.cum[cur.n]/100)} verdiend</span>`; return; }
-  const pYm=addMonths(ym,-1), prev=chartData(pYm), last=lastDayFor(ym);
-  const dt=parseD(`${ym}-${pad(d)}`).toLocaleDateString('nl-BE',{weekday:'short',day:'numeric',month:'long'});
+  const ym=chartMonth, cur=chartData(ym), last=lastDayFor(ym);
+  if(!d){ $('#chartHead').innerHTML=`<b>${monthName(ym)}</b><span>${last?`${money(cur.cum[cur.n]/100)} verdiend`:''}${last&&cur.planTot?' · ':''}${cur.planTot?`${money(cur.planTot/100)} gepland`:''}${!last&&!cur.planTot?'Niets gepland':''}</span>`; return; }
+  const pYm=addMonths(ym,-1), prev=chartData(pYm);
+  const dt=clean(parseD(`${ym}-${pad(d)}`).toLocaleDateString('nl-BE',{weekday:'short',day:'numeric',month:'long'}));
+  let v;
+  if(d<=last) v=money(cur.cum[d]/100);
+  else { const base=last?cur.cum[last]:0; let p=0; for(let k=1;k<=d;k++) p+=cur.plan[k]; v=cur.planTot?`verwacht ${money((base+p)/100)}`:'—'; }
   const pv=(d<=prev.n&&prev.cum[prev.n]>0)?` · ${monthOnly(pYm).slice(0,3)} ${money(prev.cum[d]/100)}`:'';
-  $('#chartHead').innerHTML=`<b>${clean(dt)}</b><span>${d<=last?money(cur.cum[d]/100):'—'}${pv}</span>`;
+  $('#chartHead').innerHTML=`<b>${dt}</b><span>${v}${pv}</span>`;
 }
 function drawChart(){
   const cv=$('#chart'); if(!cv||!cv.offsetParent) return;
@@ -840,8 +990,9 @@ function drawChart(){
   const cs=getComputedStyle(document.documentElement), v=n=>cs.getPropertyValue(n).trim();
   const tint=v('--tint'), grid=v('--grid'), lab2=v('--label2'), lab3=v('--label3'), surf=v('--card'), cmp=v('--cmp');
   const ym=chartMonth, cur=chartData(ym), prev=chartData(addMonths(ym,-1)), n=cur.n, last=lastDayFor(ym), pn=Math.min(n,prev.n);
-  const hasPrev=prev.cum[prev.n]>0;
-  const maxE=Math.max((cur.cum[Math.max(0,last)]||0)/100,hasPrev?prev.cum[pn]/100:0,300);
+  const hasPrev=prev.cum[prev.n]>0, base=last?cur.cum[last]:0, s0=last||1;
+  const proj=[]; if(cur.planTot){ let run=base; for(let d=s0;d<=n;d++){ run+=cur.plan[d]; proj[d]=run; } }
+  const maxE=Math.max((cur.cum[Math.max(0,last)]||0)/100,hasPrev?prev.cum[pn]/100:0,cur.planTot?(base+cur.planTot)/100:0,300);
   const step=niceStep(maxE/3), top=Math.ceil(maxE/step)*step;
   const Lp=4, Rp=48, Tp=10, Bp=24, pw=W-Lp-Rp, ph=H-Tp-Bp;
   const X=d=>Lp+(n>1?(d-1)/(n-1):0)*pw, Y=c=>Tp+ph-(c/100)/top*ph;
@@ -858,168 +1009,239 @@ function drawChart(){
     const gr=ctx.createLinearGradient(0,Tp,0,Tp+ph); gr.addColorStop(0,hexA(tint,.14)); gr.addColorStop(1,hexA(tint,.02)); ctx.fillStyle=gr; ctx.fill();
     path(); ctx.strokeStyle=tint; ctx.lineWidth=2; ctx.stroke();
   }
-  const dot=(x,y,c)=>{ ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fillStyle=surf; ctx.fill(); ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fillStyle=c; ctx.fill(); };
+  if(cur.planTot){ // prognose: gestreept, want nog niet gewerkt
+    ctx.beginPath(); ctx.moveTo(X(s0),Y(base)); for(let d=s0;d<=n;d++) ctx.lineTo(X(d),Y(proj[d]));
+    ctx.setLineDash([5,5]); ctx.strokeStyle=tint; ctx.lineWidth=2; ctx.stroke(); ctx.setLineDash([]);
+  }
+  const dot=(x,y,c,hollow)=>{ ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fillStyle=surf; ctx.fill(); ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); if(hollow){ ctx.strokeStyle=c; ctx.lineWidth=2; ctx.stroke(); } else { ctx.fillStyle=c; ctx.fill(); } };
   const sd=chart.scrub;
   if(sd){
     const x=Math.round(X(sd))+.5; ctx.strokeStyle=lab3; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x,Tp); ctx.lineTo(x,Tp+ph); ctx.stroke();
     if(hasPrev&&sd<=pn) dot(X(sd),Y(prev.cum[sd]),cmp);
-    if(sd<=last) dot(X(sd),Y(cur.cum[sd]),tint);
-  } else if(last>=1) dot(X(last),Y(cur.cum[last]),tint);
-  chart.geo={Lp,pw,n,last,pn,hasPrev};
+    if(sd<=last) dot(X(sd),Y(cur.cum[sd]),tint); else if(cur.planTot&&proj[sd]!=null) dot(X(sd),Y(proj[sd]),tint,true);
+  } else {
+    if(last>=1) dot(X(last),Y(cur.cum[last]),tint);
+    if(cur.planTot) dot(X(n),Y(proj[n]),tint,true);
+  }
+  chart.geo={Lp,pw,n,last,pn,hasPrev,plan:!!cur.planTot};
 }
 function scrubAt(clientX){
   const g=chart.geo; if(!g) return;
   const r=$('#chart').getBoundingClientRect();
-  const maxD=Math.max(g.last,g.hasPrev?g.pn:0); if(maxD<1) return;
+  const maxD=g.plan?g.n:Math.max(g.last,g.hasPrev?g.pn:0); if(maxD<1) return;
   let d=Math.round((clientX-r.left-g.Lp)/g.pw*(g.n-1))+1; d=Math.max(1,Math.min(maxD,d));
   if(d!==chart.scrub){ chart.scrub=d; drawChart(); setChartHead(d); }
 }
 function endScrub(){ if(chart.scrub==null&&!chart.drag) return; chart.drag=false; chart.scrub=null; drawChart(); setChartHead(null); }
 
 /* ================= Werkdagen ================= */
-function entryRow(e,swipe=true){
-  const sub=[dShort(e.date),e.type==='gig'?'Vaste prijs':fmtH(billMin(e)),num(e.km)?`${fmtNum(num(e.km),1)} km`:''].filter(Boolean).join(' · ');
-  const inner=`<div class="cell link${swipe?' swipe-content':''}" data-act="edit-entry" data-id="${esc(e.id)}" role="button" tabindex="0"><span class="ic" style="--c:${cvar(e.client)}">${e.type==='gig'?ICON.phones:ICON.speaker}</span><div class="cell-main"><div class="cell-t">${esc(e.client)}</div><div class="cell-s">${sub}</div>${e.note?`<div class="cell-n">${esc(e.note)}</div>`:''}</div><div class="cell-amt">${money(amount(e))}</div>${CHEV}</div>`;
-  return swipe?`<div class="swipe"><div class="swipe-actions"><button class="swipe-del" data-act="del-entry" data-id="${esc(e.id)}">${ICON.trash}<span>Verwijder</span></button></div>${inner}</div>`:inner;
-}
 function allClients(){ const cl=[...state.settings.clients]; state.entries.forEach(e=>{ if(!cl.includes(e.client)) cl.push(e.client); }); return cl; }
 function renderDays(){
   const cl=allClients(); if(daysClient!=='all'&&!cl.includes(daysClient)) daysClient='all';
   $('#dayChips').innerHTML=[`<button class="chip ${daysClient==='all'?'on':''}" data-act="days-client" data-c="all">Alle</button>`,...cl.map(c=>`<button class="chip ${daysClient===c?'on':''}" data-act="days-client" data-c="${esc(c)}">${esc(c)}</button>`)].join('');
   $('.search-x').classList.toggle('hide',!daysQuery);
-  const q=daysQuery.trim().toLowerCase(), box=$('#daysList');
-  if(!state.entries.length){ box.innerHTML=emptyHTML('cal','Nog geen werkdagen','Registreer na elke werkdag je uren, pauze en kilometers.',true); return; }
-  const list=sortDesc(state.entries).filter(e=>(daysClient==='all'||e.client===daysClient)&&(!q||`${e.client} ${e.note} ${dShort(e.date)} ${dDay(e.date)} ${monthName(e.date.slice(0,7))} ${e.date}`.toLowerCase().includes(q)));
-  if(!list.length){ box.innerHTML=emptyHTML('search','Geen resultaten','Probeer een andere zoekterm of filter.'); return; }
-  let html='',cur=null,buf=[],tot=0;
-  const flush=()=>{ if(cur) html+=`<div class="sec-h"><span>${monthName(cur)}</span><span class="r">${money(tot/100)}</span></div><div class="group icons">${buf.join('')}</div>`; };
+  const q=daysQuery.trim().toLowerCase(), box=$('#daysList'), t=todayStr();
+  if(!state.entries.length){ box.innerHTML=emptyHTML('cal','Nog geen werkdagen','Registreer na elke werkdag je uren, pauze, kilometers en een beschrijving. Toekomstige jobs kun je al plannen.',true); return; }
+  const match=e=>(daysClient==='all'||e.client===daysClient)&&(!q||`${e.client} ${e.note} ${dShort(e.date)} ${dDay(e.date)} ${monthName(e.date.slice(0,7))} ${e.date}`.toLowerCase().includes(q));
+  const P=sortAsc(state.entries.filter(e=>e.planned&&match(e))), due=P.filter(e=>e.date<=t), up=P.filter(e=>e.date>t);
+  const list=sortDesc(state.entries.filter(e=>!e.planned&&match(e)));
+  let html='';
+  if(due.length) html+=sec('Te bevestigen')+grp(due.map(planRow).join(''),'icons');
+  if(up.length) html+=`<div class="sec-h"><span>Gepland</span><span class="r">${money(up.reduce((s,e)=>s+ecents(e),0)/100)}</span></div>`+grp(up.map(planRow).join(''),'icons');
+  let cur=null,buf=[],tot=0;
+  const flush=()=>{ if(cur) html+=`<div class="sec-h"><span>${monthName(cur)}</span><span class="r">${money(tot/100)}</span></div>${grp(buf.join(''),'icons')}`; };
   list.forEach(e=>{ const mo=e.date.slice(0,7); if(mo!==cur){ flush(); cur=mo; buf=[]; tot=0; } buf.push(entryRow(e)); tot+=ecents(e); });
-  flush(); box.innerHTML=html;
+  flush();
+  box.innerHTML=html||emptyHTML('search','Geen resultaten','Probeer een andere zoekterm of filter.');
 }
 
 /* ================= Facturen ================= */
 function renderInv(gs){
-  const tot={open:0,sent:0,paid:0}; gs.forEach(g=>tot[stOf(g.key).s]+=g.c);
-  const mini=(f,c,l,v)=>`<button class="mini${invFilter===f?' on':''}" data-act="inv-filter" data-f="${f}" style="--c:${c}"><span><i></i>${l}</span><b class="rounded">${money0(v/100)}</b></button>`;
+  const tot={open:0,sent:0,paid:0}; gs.forEach(g=>tot[stOf(g.key).s]+=invAmount(g));
+  const mini=(f,c,l,v)=>`<button class="mini${invFilter===f?' on':''}" data-act="inv-filter" data-f="${f}" style="--c:${c}"><span><i></i>${l}</span><b class="rounded">${money0(v)}</b></button>`;
   $('#invSummary').innerHTML=mini('open','var(--orange)','Te factureren',tot.open)+mini('sent','var(--gray)','Openstaand',tot.sent)+mini('paid','var(--green)','Ontvangen',tot.paid);
   const F=['all','open','sent','paid'], seg=$('#invSeg');
   seg.style.setProperty('--i',F.indexOf(invFilter)); $$('button',seg).forEach(b=>b.classList.toggle('on',b.dataset.f===invFilter));
-  const box=$('#invList');
-  if(!gs.length){ box.innerHTML=emptyHTML('doc','Nog geen facturen','Zodra je werkdagen toevoegt, verschijnen hier je maandfacturen per opdrachtgever.'); return; }
-  const list=gs.filter(g=>invFilter==='all'||stOf(g.key).s===invFilter).sort((a,b)=>b.month.localeCompare(a.month)||corder(a.client)-corder(b.client)||a.client.localeCompare(b.client));
-  if(!list.length){ box.innerHTML=emptyHTML('check','Niets te tonen',{open:'Alle facturen zijn verstuurd.',sent:'Er wachten geen facturen op betaling.',paid:'Nog geen betaalde facturen.'}[invFilter]||''); return; }
-  let html='',cur=null,buf=[],tot2=0;
-  const flush=()=>{ if(cur) html+=`<div class="sec-h"><span>${monthName(cur)}</span><span class="r">${money(tot2/100)}</span></div><div class="group icons">${buf.join('')}</div>`; };
-  list.forEach(g=>{ if(g.month!==cur){ flush(); cur=g.month; buf=[]; tot2=0; } buf.push(invRow(g)); tot2+=g.c; });
-  flush(); box.innerHTML=html;
-}
-function invRow(g){
-  const sub=[g.min?fmtH(g.min):'',g.gigs?`${g.gigs} ${g.gigs===1?'gig':'gigs'}`:'',g.km?`${fmtNum(g.km,0)} km`:''].filter(Boolean).join(' · ');
-  return `<div class="cell link" data-act="open-inv" data-key="${esc(g.key)}" role="button" tabindex="0"><span class="ic" style="--c:${cvar(g.client)}">${ICON.doc}</span><div class="cell-main"><div class="cell-t">${esc(g.client)}</div><div class="cell-s">${sub}</div></div><div class="inv-r"><div class="cell-amt">${money(g.c/100)}</div>${stChip(dispSt(g))}</div>${CHEV}</div>`;
-}
-function openDetail(key){
-  detailKey=key; renderDetail();
-  $('#detailBody').scrollTop=0;
-  const p=$('#detail'); p.classList.add('on'); p.setAttribute('aria-hidden','false'); document.body.classList.add('pushed');
-}
-function closeDetail(instant){
-  const p=$('#detail');
-  if(instant){ p.style.transition='none'; $('main').style.transition='none'; $('#navbar').style.transition='none'; }
-  p.classList.remove('on'); p.setAttribute('aria-hidden','true'); document.body.classList.remove('pushed'); detailKey=null;
-  if(instant) requestAnimationFrame(()=>requestAnimationFrame(()=>{ p.style.transition=''; $('main').style.transition=''; $('#navbar').style.transition=''; }));
-}
-function statusFoot(g,st,ds){
-  const t=todayStr();
-  if(ds==='running') return `Deze maand loopt nog. Factureer op <b>${dMed(`${g.month}-${pad(dim(g.month))}`)}</b>.`;
-  if(st.s==='open') return 'Nog niet verstuurd.';
-  if(st.s==='sent'){
-    if(!st.sentAt) return 'Verstuurd · wacht op betaling.'; // status uit de vorige versie, zonder datum
-    const w=daysBetween(st.sentAt,t);
-    return `Verstuurd op <b>${dMed(st.sentAt)}</b> · wacht ${w<=0?'sinds vandaag':`al ${w} ${w===1?'dag':'dagen'}`} op betaling.`;
-  }
-  const parts=[st.sentAt?`Verstuurd op <b>${dMed(st.sentAt)}</b>`:'',st.paidAt?`${st.sentAt?'betaald':'Betaald'} op <b>${dMed(st.paidAt)}</b>`:'Betaald'].filter(Boolean);
-  return parts.join(' · ')+'.';
-}
-function renderDetail(gs){
-  const g=(gs||groups()).find(x=>x.key===detailKey);
-  if(!g){ closeDetail(); render(); return; }
-  const st=stOf(g.key), ds=dispSt(g), si=STATUSES.indexOf(st.s);
-  $('#dTitle').textContent=g.client;
-  const rates=[...new Set(g.entries.filter(e=>e.type!=='gig').map(rateOf))], kmr=[...new Set(g.entries.filter(e=>num(e.km)).map(kmRateOf))];
-  const kv=(l,v,bold)=>`<div class="cell"><span class="cell-main">${bold?`<b>${l}</b>`:l}</span><span class="cell-v" style="${bold?'color:var(--label);font-weight:600':''}">${v}</span></div>`;
-  $('#detailBody').innerHTML=`<div class="page-inner"><div class="d-head"><span class="ic" style="--c:${cvar(g.client)}">${ICON.doc}</span><div class="d-client">${esc(g.client)}</div><div class="d-month">${monthName(g.month)}</div><div class="d-amt rounded">${money(g.c/100)}</div>${stChip(ds)}</div>
-    <div class="sec-h">Status</div>
-    <div class="seg" style="--n:3;--i:${si}">${STATUSES.map((s,i)=>`<button class="${i===si?'on':''}" data-act="set-status" data-s="${s}">${ST[s].l}</button>`).join('')}</div>
-    <div class="sec-f">${statusFoot(g,st,ds)}</div>
-    <div class="sec-h"><span>Specificatie</span><span class="r">${g.entries.length} ${g.entries.length===1?'werkdag':'werkdagen'}</span></div>
-    <div class="group icons">${sortAsc(g.entries).map(specRow).join('')}</div>
-    <div class="sec-h">Totaal</div>
-    <div class="group">
-      ${g.min?kv(`Uren · ${fmtH(g.min)}${rates.length===1?` × ${money(rates[0])}`:''}`,money(g.wc/100)):''}
-      ${g.gigs?kv(`Vaste prijzen · ${g.gigs}×`,money(g.fc/100)):''}
-      ${g.km?kv(`Kilometers · ${fmtNum(g.km,1)} km${kmr.length===1?` × ${money(kmr[0])}`:''}`,money(g.kc/100)):''}
-      ${kv('Totaal',money(g.c/100),true)}
-    </div>
-    <div class="d-actions">
-      <button class="btn filled" data-act="share-inv">${ICON.up}Deel overzicht</button>
-      <button class="btn gray" data-act="copy-inv">${ICON.copy}Kopieer als tekst</button>
-    </div></div>`;
-}
-function specRow(e){
-  const p=partsC(e);
-  const main=e.type==='gig'?`Vaste prijs ${money(num(e.fee))}`:`${fmtH(billMin(e))} × ${money(rateOf(e))}`;
-  const time=e.type!=='gig'&&e.start&&e.end?` · ${e.start}–${e.end}`:'';
-  return `<div class="cell link" data-act="edit-entry" data-id="${esc(e.id)}" role="button" tabindex="0"><span class="ic" style="--c:${cvar(e.client)}">${e.type==='gig'?ICON.phones:ICON.speaker}</span><div class="cell-main"><div class="cell-t">${dShort(e.date)}<span class="muted">${time}</span></div><div class="cell-s">${main}${num(e.km)?` · ${fmtNum(num(e.km),1)} km`:''}</div>${e.note?`<div class="cell-n">${esc(e.note)}</div>`:''}</div><div class="cell-amt">${money((p.w+p.k)/100)}</div>${CHEV}</div>`;
+  const box=$('#invList'), na=state.entries.filter(e=>!e.planned&&e.inAcc===false);
+  const naCell=na.length?`<div class="group icons" style="margin-top:24px"><div class="cell link" data-act="open-noacc" role="button" tabindex="0"><span class="ic" style="--c:var(--gray)">${ICON.minus}</span><div class="cell-main"><div class="cell-t">Niet in Accountable</div><div class="cell-s">${na.length} ${na.length===1?'job':'jobs'} · ${money(na.reduce((s,e)=>s+ecents(e),0)/100)}</div></div>${CHEV}</div></div>`:'';
+  if(!gs.length){ box.innerHTML=emptyHTML('doc','Nog geen facturen','Zodra je werkdagen toevoegt, verschijnen hier je facturen per opdrachtgever.')+naCell; return; }
+  const list=gs.filter(g=>invFilter==='all'||stOf(g.key).s===invFilter).sort((a,b)=>b.month.localeCompare(a.month)||corder(a.client)-corder(b.client)||a.client.localeCompare(b.client)||b.date.localeCompare(a.date));
+  if(!list.length){ box.innerHTML=emptyHTML('check','Niets te tonen',{open:'Alle facturen zijn gemaakt.',sent:'Er wachten geen facturen op betaling.',paid:'Nog geen betaalde facturen.'}[invFilter]||'')+naCell; return; }
+  let html='',cur=null,buf=[],t2=0;
+  const flush=()=>{ if(cur) html+=`<div class="sec-h"><span>${monthName(cur)}</span><span class="r">${money(t2)}</span></div>${grp(buf.join(''),'icons')}`; };
+  list.forEach(g=>{ if(g.month!==cur){ flush(); cur=g.month; buf=[]; t2=0; } buf.push(invRow(g)); t2+=invAmount(g); });
+  flush(); box.innerHTML=html+naCell;
 }
 function invoiceText(g){
-  const L=[`Prestatieoverzicht ${monthName(g.month)}`,`Opdrachtgever: ${g.client}`,''];
+  const L=[g.job?`Prestatie ${dLongY(g.date)}`:`Prestatieoverzicht ${monthName(g.month)}`,`Opdrachtgever: ${g.client}`,''];
   sortAsc(g.entries).forEach(e=>{
     const p=partsC(e), parts=[];
     if(e.type==='gig') parts.push(`vaste prijs ${money(p.w/100)}`);
-    else parts.push(`${fmtH(billMin(e))}${e.start&&e.end?` (${e.start}–${e.end}${e.breakMin?`, ${fmtMin(e.breakMin)} pauze`:''})`:''} × ${money(rateOf(e))} = ${money(p.w/100)}`);
+    else parts.push(`${e.start&&e.end?`${e.start}–${e.end}${e.breakMin?` (${fmtMin(e.breakMin)} pauze)`:''}, `:''}${fmtH(billMin(e))} = ${fmtDec(billMin(e))} uur × ${money(rateOf(e))} = ${money(p.w/100)}`);
     if(num(e.km)) parts.push(`${fmtNum(num(e.km),1)} km × ${money(kmRateOf(e))} = ${money(p.k/100)}`);
-    L.push(`${dShort(e.date)}: ${parts.join(' + ')}${e.note?` (${e.note})`:''} → ${money((p.w+p.k)/100)}`);
+    L.push(`${dWeek(e.date)}: ${parts.join(' + ')}`);
+    if(e.note) L.push(`   ${e.note}`);
   });
-  L.push('');
-  if(g.min) L.push(`Uren: ${fmtH(g.min)} → ${money(g.wc/100)}`);
-  if(g.gigs) L.push(`Vaste prijzen: ${g.gigs}× → ${money(g.fc/100)}`);
-  if(g.km) L.push(`Kilometers: ${fmtNum(g.km,1)} km → ${money(g.kc/100)}`);
-  L.push(`TOTAAL: ${money(g.c/100)}`);
+  const A=accLines(g);
+  L.push('','Voor de factuur:');
+  A.lines.forEach(l=>L.push(`${l.label}: ${l.qty} × ${money(l.price)} = ${money(l.total)}`));
+  L.push(`TOTAAL: ${money(A.total)}`);
   return L.join('\n');
 }
 async function copyText(t){
   try{ await navigator.clipboard.writeText(t); return true; }
   catch(e){ const ta=document.createElement('textarea'); ta.value=t; ta.setAttribute('readonly',''); ta.style.cssText='position:fixed;top:-1000px;opacity:0'; document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0,t.length); let ok=false; try{ ok=document.execCommand('copy'); }catch(_){} ta.remove(); return ok; }
 }
-async function copyInvoice(){ const g=groups().find(x=>x.key===detailKey); if(!g) return; const ok=await copyText(invoiceText(g)); hud(ok?'Gekopieerd':'Kopiëren mislukt',ok?'copy':'exclam'); }
-async function shareInvoice(){
-  const g=groups().find(x=>x.key===detailKey); if(!g) return;
+async function copyInvoice(key){ const g=groups().find(x=>x.key===key); if(!g) return; const ok=await copyText(invoiceText(g)); hud(ok?'Gekopieerd':'Kopiëren mislukt',ok?'copy':'exclam'); }
+async function shareInvoice(key){
+  const g=groups().find(x=>x.key===key); if(!g) return;
   const text=invoiceText(g);
-  if(navigator.share){
-    try{ await navigator.share({title:`Prestaties ${g.client} – ${monthName(g.month)}`,text}); }
-    catch(e){ if(e&&e.name==='AbortError') return; const ok=await copyText(text); hud(ok?'Gekopieerd':'Delen mislukt',ok?'copy':'exclam'); return; }
-    if(stOf(g.key).s==='open'){
-      const r=await actionSheet({title:'Factuur verstuurd?',message:`Markeer ${g.client} (${monthOnly(g.month)}) als verstuurd.`,actions:[{label:'Markeer als verstuurd',value:'sent'}],cancel:'Nog niet'});
-      if(r==='sent'){ setStatus(g.key,'sent'); render(); hud('Verstuurd','plane'); }
+  if(!navigator.share){ const ok=await copyText(text); hud(ok?'Gekopieerd':'Kopiëren mislukt',ok?'copy':'exclam'); return; }
+  try{ await navigator.share({title:`Prestaties ${invTitle(g)}`,text}); }
+  catch(e){ if(e&&e.name==='AbortError') return; const ok=await copyText(text); hud(ok?'Gekopieerd':'Delen mislukt',ok?'copy':'exclam'); return; }
+  if(stOf(key).s==='open'){
+    const r=await actionSheet({title:'Factuur gemaakt?',message:`Markeer ${invTitle(g)} als verstuurd.`,actions:[{label:'Markeer als verstuurd',value:'sent'}],cancel:'Nog niet'});
+    if(r==='sent') setStatusUI(key,'sent');
+  }
+}
+async function askAccAmount(g,cur){
+  const A=accLines(g);
+  const r=await iosDialog({title:'Bedrag in Accountable',message:`Welk totaal staat op je factuur in Accountable voor ${invTitle(g)}?`,input:{value:fmt2(cur!=null?cur:A.total),mode:'decimal'},buttons:[{label:'Annuleer',value:false},{label:'Bewaar',value:true,style:'bold'}]});
+  if(!r.value) return null; const v=num(r.text); return v>=0?r2(v):null;
+}
+async function setStatusUI(key,s){
+  const cur=stOf(key); if(cur.s===s) return;
+  const g=groups().find(x=>x.key===key); if(!g) return;
+  let amt;
+  if(s!=='open'&&cur.s==='open'){ amt=await askAccAmount(g,null); if(amt==null) return; }
+  setStatus(key,s,s==='open'?null:amt); render();
+  hud(ST[s==='open'?'open':s].l,s==='paid'?'check':s==='sent'?'plane':'exclam');
+}
+async function editAccAmount(key){
+  const g=groups().find(x=>x.key===key); if(!g) return; const st=stOf(key); if(st.s==='open') return;
+  const a=await askAccAmount(g,invAmount(g)); if(a==null) return;
+  state.status[key]=Object.assign({},st,{amount:a}); save(); render(); hud('Bewaard');
+}
+
+/* ================= pagina's (iOS-navigatiestapel, alleen-lezen) ================= */
+const stack=[];
+const PAGE={
+  inv(key){
+    const g=groups().find(x=>x.key===key); if(!g) return null;
+    const st=stOf(key), ds=dispSt(g), A=accLines(g), amt=invAmount(g), thorax=g.c/100;
+    const opt=(s,l,sub)=>`<div class="cell link" data-act="set-status" data-key="${esc(key)}" data-s="${s}" role="button" tabindex="0" aria-pressed="${st.s===s}"><div class="cell-main"><div class="cell-t">${l}</div>${sub?`<div class="cell-s">${sub}</div>`:''}</div><i class="ck">${st.s===s?ICON.check:''}</i></div>`;
+    const wait=st.s==='sent'&&st.sentAt?daysBetween(st.sentAt,todayStr()):null;
+    let body=`<div class="d-head"><span class="ic" style="--c:${cvar(g.client)}">${ICON.doc}</span><div class="d-client">${esc(g.client)}</div><div class="d-month">${g.job?`${dLongY(g.date)} · per opdracht`:monthName(g.month)}</div><div class="d-amt rounded">${money(amt)}</div>${stChip(ds)}</div>`;
+    body+=sec('Status')+grp(
+      opt('open','Te factureren',ds==='running'?(g.job?'Job ligt in de toekomst':`Maand loopt nog · factureer op ${dMed(`${g.month}-${pad(dim(g.month))}`)}`):'Nog niet in Accountable')
+      +opt('sent','Verstuurd',st.s!=='open'?(st.sentAt?`Gemaakt in Accountable op ${dMed(st.sentAt)}`:'Gemaakt in Accountable'):'Factuur gemaakt in Accountable')
+      +opt('paid','Betaald',st.s==='paid'&&st.paidAt?`Ontvangen op ${dMed(st.paidAt)}`:(wait!=null?`Wacht ${wait<=0?'sinds vandaag':`al ${wait} ${wait===1?'dag':'dagen'}`}`:'')));
+    if(st.s!=='open'){
+      const diff=r2(amt-thorax);
+      body+=sec('Accountable')+grp(`<div class="cell link" data-act="acc-amount" data-key="${esc(key)}" role="button" tabindex="0"><span class="cell-main">Bedrag in Accountable</span><span class="cell-v">${money(amt)}</span>${CHEV}</div>`)
+        +`<div class="sec-f">${Math.abs(diff)>=0.01?`Thorax berekent ${money(thorax)} (verschil ${money(Math.abs(diff))}). Voor je totalen en belastingpot telt het bedrag in Accountable.`:'Komt overeen met Thorax.'}</div>`;
     }
-  } else { const ok=await copyText(text); hud(ok?'Gekopieerd':'Kopiëren mislukt',ok?'copy':'exclam'); }
+    body+=sec('Voor Accountable')+`<div class="group">${A.lines.map(l=>`<div class="cell link" data-act="copy-val" data-v="${esc(l.copy)}" role="button" tabindex="0"><div class="cell-main"><div class="cell-t">${esc(l.label)}</div><div class="cell-s">${l.qty} × ${money(l.price)}${l.hint?` <span class="muted">(${l.hint})</span>`:''}</div></div><span class="cell-amt">${money(l.total)}</span><i class="cpy">${ICON.copy}</i></div>`).join('')}<div class="cell"><span class="cell-main"><b>Totaal</b></span><span class="cell-amt">${money(A.total)}</span></div></div>`
+      +`<div class="sec-f">Tik op een regel om het aantal te kopiëren. Uren staan in decimalen, zoals Accountable ze verwacht (7u30 = 7,50).${Math.abs(A.total-thorax)>=0.01?` Door afronding van de uren komt Accountable op ${money(A.total)} i.p.v. ${money(thorax)}.`:''}</div>`;
+    body+=`<div class="sec-h"><span>${g.job?'Opdracht':'Werkdagen'}</span><span class="r">${g.entries.length} · ${fmtH(g.min)}${g.km?` · ${fmtNum(g.km,0)} km`:''}</span></div>`+grp(sortAsc(g.entries).map(dayRow).join(''),'icons');
+    if(!g.job){ const ex=sortAsc(state.entries.filter(e=>!e.planned&&e.inAcc===false&&e.client===g.client&&e.date.startsWith(g.month))); if(ex.length) body+=sec('Niet via Accountable')+grp(ex.map(dayRow).join(''),'icons dim')+`<div class="sec-f">Deze werkdagen tellen niet mee in deze factuur.</div>`; }
+    body+=`<div class="d-actions"><button class="btn filled" data-act="copy-inv" data-key="${esc(key)}">${ICON.copy}Kopieer overzicht</button><button class="btn gray" data-act="share-inv" data-key="${esc(key)}">${ICON.up}Deel</button></div>`;
+    return {title:g.client,right:`<button class="nb-btn" data-act="share-inv" data-key="${esc(key)}" aria-label="Deel overzicht">${ICON.up}</button>`,body};
+  },
+  entry(id){
+    const e=state.entries.find(x=>x.id===id); if(!e) return null;
+    const p=partsC(e), t=todayStr(), g=isInv(e)?groups().find(x=>x.key===invKeyOf(e)):null;
+    const chip=e.planned?stChip(e.date<=t?'confirm':'planned'):e.inAcc===false?stChip('noacc'):g?stChip(dispSt(g)):'';
+    let body=`<div class="d-head"><span class="ic${e.planned?' plan':''}" style="--c:${cvar(e.client)}">${e.planned?ICON.cal:typeIcon(e)}</span><div class="d-client">${esc(e.client)}</div><div class="d-month">${dLongY(e.date)}</div><div class="d-amt rounded">${money(amount(e))}</div>${chip}</div>`;
+    if(e.planned) body+=`<button class="btn filled" data-act="confirm-entry" data-id="${esc(e.id)}" style="margin-top:18px">${ICON.check}${e.date<=t?'Bevestig je uren':'Bevestig na de job'}</button>`;
+    if(e.type==='gig') body+=sec('Opdracht')+grp(kv('Vaste prijs',money(num(e.fee))));
+    else body+=sec(e.planned?'Verwachte tijd':'Tijd')+grp(kv('Start',e.start||'—')+kv('Einde',e.end||'—')+kv('Pauze',fmtMin(e.breakMin))+kv('Gewerkt',fmtH(workMin(e)))+kv('<b>Te factureren</b>',`<b>${fmtH(billMin(e))}</b> (${fmtDec(billMin(e))} u)`)+kv('Uurtarief',money(rateOf(e))));
+    body+=sec('Kilometers')+grp(kv(`${fmtNum(num(e.km),1)} km × ${money(kmRateOf(e))}`,money(p.k/100)));
+    body+=sec('Beschrijving')+grp(`<div class="cell"><div class="cell-main desc">${e.note?esc(e.note):'<span class="muted">Geen beschrijving</span>'}</div></div>`);
+    if(!e.planned) body+=sec('Factuur')+(g?grp(`<div class="cell link" data-act="open-inv" data-key="${esc(g.key)}" role="button" tabindex="0"><span class="ic" style="--c:${cvar(g.client)}">${ICON.doc}</span><div class="cell-main"><div class="cell-t">${esc(invTitle(g))}</div><div class="cell-s">${money(invAmount(g))}</div></div>${CHEV}</div>`,'icons'):grp(`<div class="cell"><span class="cell-main muted">Niet gefactureerd via Accountable</span></div>`));
+    body+=`<div class="sec-f">Tik op <b>Wijzig</b> om ${e.planned?'deze geplande job':'deze werkdag'} aan te passen of te verwijderen.</div>`;
+    return {title:e.planned?'Geplande job':'Werkdag',right:`<button class="nb-txt" data-act="edit-entry" data-id="${esc(e.id)}">Wijzig</button>`,body};
+  },
+  client(name){
+    if(!state.settings.clients.includes(name)) return null;
+    const es=state.entries.filter(e=>e.client===name&&!e.planned), tot=es.reduce((s,e)=>s+ecents(e),0), c=cyc(name);
+    let body=`<div class="d-head"><span class="ic" style="--c:${cvar(name)}">${esc((name.trim()[0]||'?').toUpperCase())}</span><div class="d-client">${esc(name)}</div><div class="d-month">${es.length} ${es.length===1?'werkdag':'werkdagen'} · ${money(tot/100)}</div></div>`;
+    body+=sec('Naam')+grp(`<div class="cell link" data-act="rename-client" data-name="${esc(name)}" role="button" tabindex="0"><span class="cell-main">${esc(name)}</span><span class="cell-v tint">Wijzig</span></div>`);
+    body+=sec('Facturatie')+`<div class="seg" style="--n:2;--i:${c==='job'?1:0}"><button class="${c==='month'?'on':''}" data-act="set-cycle" data-name="${esc(name)}" data-v="month">Per maand</button><button class="${c==='job'?'on':''}" data-act="set-cycle" data-name="${esc(name)}" data-v="job">Per opdracht</button></div>`
+      +`<div class="sec-f">${c==='job'?'Elke job is een aparte factuur die je dezelfde dag maakt (zoals je DJ-werk).':'Eén factuur per maand met alle werkdagen, te maken op de laatste dag van de maand.'}</div>`;
+    body+=`<button class="btn gray danger" data-act="delete-client" data-name="${esc(name)}" style="margin-top:32px">Verwijder opdrachtgever</button><div class="sec-f">Werkdagen en facturen van ${esc(name)} blijven bewaard.</div>`;
+    return {title:name,body};
+  },
+  trash(){
+    const T=state.trash;
+    const body=T.length?sec(`${T.length} ${T.length===1?'item':'items'}`)+grp(T.map(t=>{ const e=t.e; return `<div class="cell"><span class="ic" style="--c:${cvar(e.client)}">${e.planned?ICON.cal:typeIcon(e)}</span><div class="cell-main"><div class="cell-t">${esc(e.client)} · ${dShort(e.date)}</div><div class="cell-s">${money(amount(e))} · verwijderd ${relDay(t.at.slice(0,10))}</div>${e.note?`<div class="cell-n">${esc(e.note)}</div>`:''}</div><button class="pill-btn tint" data-act="restore" data-id="${esc(e.id)}">Zet terug</button></div>`; }).join(''),'icons')
+      +`<div class="sec-f">Verwijderde werkdagen blijven hier ${TRASH_DAYS} dagen staan en verdwijnen daarna definitief.</div>`
+      :emptyHTML('trash','Niets verwijderd',`Verwijderde werkdagen blijven hier ${TRASH_DAYS} dagen staan, zodat je ze kunt terugzetten.`);
+    return {title:'Recent verwijderd',body};
+  },
+  noacc(){
+    const L=sortDesc(state.entries.filter(e=>!e.planned&&e.inAcc===false));
+    const body=L.length?`<div class="sec-f" style="margin-top:16px">Deze jobs staan in Thorax, maar factureer je niet via Accountable. Ze tellen mee voor je doel, niet voor je facturen en je belastingpot.</div>`+sec(`${L.length} ${L.length===1?'job':'jobs'} · ${money(L.reduce((s,e)=>s+ecents(e),0)/100)}`)+grp(L.map(dayRow).join(''),'icons')
+      :emptyHTML('check','Alles staat in Accountable','Zet bij een job de schakelaar “Factureren via Accountable” uit als je hem niet factureert.');
+    return {title:'Niet in Accountable',body};
+  },
+};
+function renderPage(p,i){
+  const r=PAGE[p.type](p.id); if(!r) return false;
+  p.title=r.title;
+  $('.pt',p.el).textContent=r.title; $('.pr',p.el).innerHTML=r.right||''; $('.pb',p.el).innerHTML=r.body;
+  $('.bl',p.el).textContent=i>0?stack[i-1].title:TITLES[tab];
+  return true;
+}
+function renderPages(){ for(let i=0;i<stack.length;i++){ if(!renderPage(stack[i],i)){ while(stack.length>i+1) popPage(true); popPage(); break; } } }
+function pushPage(type,id){
+  const el=document.createElement('section'); el.className='page';
+  el.innerHTML=`<div class="page-nav"><div class="nb-left"><button class="nb-back" data-act="back">${ICON.back}<span class="bl"></span></button></div><div class="nb-title show pt"></div><div class="nb-right pr"></div></div><div class="page-body"><div class="page-inner pb"></div></div>`;
+  el.style.zIndex=String(22+stack.length);
+  const i=stack.length, p={type,id,el,title:''};
+  stack.push(p);
+  if(!renderPage(p,i)){ stack.pop(); return; }
+  document.body.insertBefore(el,$('.tabbar'));
+  el.getBoundingClientRect(); el.classList.add('on');
+  if(i>0) stack[i-1].el.classList.add('behind'); else document.body.classList.add('pushed');
+  edgeSwipe(el);
+}
+function popPage(instant){
+  const p=stack.pop(); if(!p) return;
+  if(instant) p.el.remove(); else { p.el.classList.remove('on'); setTimeout(()=>p.el.remove(),460); }
+  const prev=stack[stack.length-1];
+  if(prev) prev.el.classList.remove('behind'); else document.body.classList.remove('pushed');
+}
+function popAll(){
+  if(!stack.length) return;
+  const m=$('main'), nb=$('#navbar'); m.style.transition=nb.style.transition='none';
+  while(stack.length) popPage(true);
+  m.getBoundingClientRect(); m.style.transition=nb.style.transition='';
+}
+function edgeSwipe(el){
+  let d=null;
+  el.addEventListener('pointerdown',e=>{ if(e.clientX>28||stack[stack.length-1]?.el!==el) return; d={x:e.clientX,id:e.pointerId,dx:0}; try{ el.setPointerCapture(e.pointerId); }catch(_){} });
+  el.addEventListener('pointermove',e=>{ if(!d||e.pointerId!==d.id) return; d.dx=Math.max(0,e.clientX-d.x); el.style.transition='none'; el.style.transform=`translateX(${d.dx}px)`; });
+  const end=()=>{ if(!d) return; const dx=d.dx; d=null; el.style.transition=''; el.style.transform=''; if(dx>innerWidth*.33) popPage(); };
+  el.addEventListener('pointerup',end); el.addEventListener('pointercancel',end);
 }
 
 /* ================= Instellingen ================= */
 const setVal=(sel,v)=>{ const el=$(sel); if(document.activeElement!==el) el.value=v??''; };
 function renderSet(){
   const s=state.settings, g=state.goal;
-  setVal('#sHourly',fmtAmt(s.hourly)); setVal('#sKm',fmtNum(s.km,3));
+  setVal('#sHourly',fmtAmt(s.hourly)); setVal('#sKm',fmtNum(s.km,3)); setVal('#sPct',s.reservePct==null?'':fmtNum(s.reservePct,1));
   setVal('#gLabel',g.label); setVal('#gAmount',fmtAmt(g.amount));
   setPick($('#gStart'),g.start); setPick($('#gEnd'),g.end);
-  $('#goalFoot').textContent=`${daysBetween(g.start,g.end)+1} dagen. Alles wat je in deze periode verdient, telt mee.`;
-  const counts={}; state.entries.forEach(e=>counts[e.client]=(counts[e.client]||0)+1);
-  $('#clientList').innerHTML=s.clients.map((c,i)=>{ const n=counts[c]||0; return `<div class="swipe"><div class="swipe-actions"><button class="swipe-del" data-act="del-client" data-i="${i}">${ICON.trash}<span>Verwijder</span></button></div><div class="cell link swipe-content" data-act="rename-client" data-i="${i}" role="button" tabindex="0"><span class="ic" style="--c:${cvar(c)}">${esc((c.trim()[0]||'?').toUpperCase())}</span><div class="cell-main"><div class="cell-t">${esc(c)}</div><div class="cell-s">${n} ${n===1?'werkdag':'werkdagen'}</div></div>${CHEV}</div></div>`; }).join('')
+  $('#goalFoot').textContent=`${daysBetween(g.start,g.end)+1} dagen. Alles wat je in deze periode verdient, telt mee; geplande jobs tellen mee in de prognose.`;
+  const counts={}; state.entries.forEach(e=>{ if(!e.planned) counts[e.client]=(counts[e.client]||0)+1; });
+  $('#clientList').innerHTML=s.clients.map(c=>{ const n=counts[c]||0; return `<div class="cell link" data-act="open-client" data-name="${esc(c)}" role="button" tabindex="0"><span class="ic" style="--c:${cvar(c)}">${esc((c.trim()[0]||'?').toUpperCase())}</span><div class="cell-main"><div class="cell-t">${esc(c)}</div><div class="cell-s">${n} ${n===1?'werkdag':'werkdagen'} · factuur ${cyc(c)==='job'?'per opdracht':'per maand'}</div></div>${CHEV}</div>`; }).join('')
     +`<button class="cell link" data-act="add-client"><span class="ic" style="--c:var(--tint)">${ICON.plus}</span><span class="cell-main cell-t tint">Opdrachtgever toevoegen</span></button>`;
   const T=['auto','light','dark']; $('#themeSeg').style.setProperty('--i',T.indexOf(s.theme)); $$('#themeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===s.theme));
   $('#backupInfo').textContent=s.lastBackup?`Laatste back-up: ${dMed(s.lastBackup)}`:'Nog nooit een back-up gemaakt';
-  const first=state.entries.length?sortAsc(state.entries)[0].date.slice(0,7):null;
-  $('#profStats').textContent=`${state.entries.length} ${state.entries.length===1?'werkdag':'werkdagen'}${first?` sinds ${monthName(first)}`:''}`;
+  $('#trashCount').textContent=state.trash.length||'';
+  const done=state.entries.filter(e=>!e.planned), np=state.entries.length-done.length, first=done.length?sortAsc(done)[0].date.slice(0,7):null;
+  $('#profStats').textContent=`${done.length} ${done.length===1?'werkdag':'werkdagen'}${np?` · ${np} gepland`:''}${first?` · sinds ${monthName(first)}`:''}`;
 }
 function applyTheme(){
   const t=state.settings.theme, root=document.documentElement;
@@ -1031,27 +1253,34 @@ async function addClient(){
   const r=await iosDialog({title:'Nieuwe opdrachtgever',message:'Naam van het bedrijf of de klant.',input:{placeholder:'Naam'},buttons:[{label:'Annuleer',value:false},{label:'Voeg toe',value:true,style:'bold'}]});
   if(!r.value) return; const n=r.text.replace(/\|/g,'/').trim(); if(!n) return;
   if(state.settings.clients.some(c=>c.toLowerCase()===n.toLowerCase())){ hud('Bestaat al','exclam'); return; }
-  state.settings.clients.push(n); ensureColors(state); save(); render(); hud('Toegevoegd');
+  state.settings.clients.push(n); ensureClients(state); save(); render(); hud('Toegevoegd');
 }
-async function renameClientUI(i){
-  const old=state.settings.clients[i]; if(old==null) return;
+async function renameClient(old){
+  const i=state.settings.clients.indexOf(old); if(i<0) return;
   const r=await iosDialog({title:'Hernoem opdrachtgever',message:'Werkdagen en facturen worden mee aangepast.',input:{value:old},buttons:[{label:'Annuleer',value:false},{label:'Bewaar',value:true,style:'bold'}]});
   if(!r.value) return; const n=r.text.replace(/\|/g,'/').trim(); if(!n||n===old) return;
   if(state.settings.clients.some((c,j)=>j!==i&&c.toLowerCase()===n.toLowerCase())){ hud('Bestaat al','exclam'); return; }
-  state.settings.clients[i]=n;
+  const s=state.settings;
+  s.clients[i]=n;
   state.entries.forEach(e=>{ if(e.client===old) e.client=n; });
-  const ns={}; Object.entries(state.status).forEach(([k,v])=>{ const [c,m]=splitKey(k); ns[c===old?`${n}|${m}`:k]=v; }); state.status=ns;
-  const col=state.settings.colors; if(col[old]!=null&&col[n]==null){ col[n]=col[old]; } delete col[old];
+  state.trash.forEach(t=>{ if(t.e.client===old) t.e.client=n; });
+  const ns={}; Object.entries(state.status).forEach(([k,v])=>{ const j=k.indexOf('|'); ns[k.slice(0,j)===old?n+k.slice(j):k]=v; }); state.status=ns;
+  for(const m of ['colors','cycle']){ if(s[m][old]!=null&&s[m][n]==null) s[m][n]=s[m][old]; delete s[m][old]; }
   if(daysClient===old) daysClient=n;
+  stack.forEach(p=>{ if(p.type==='client'&&p.id===old) p.id=n; if(p.type==='inv'&&p.id.startsWith(old+'|')) p.id=n+p.id.slice(old.length); });
   save(); render(); hud('Hernoemd');
 }
-async function deleteClientUI(i){
-  const c=state.settings.clients[i]; if(c==null) return;
-  if(state.settings.clients.length<=1){ closeSw(); hud('Minstens één nodig','exclam'); return; }
-  const n=state.entries.filter(e=>e.client===c).length;
-  const r=await actionSheet({title:`${c} verwijderen?`,message:n?`De ${n} bestaande ${n===1?'werkdag blijft':'werkdagen blijven'} bewaard, net als de facturen.`:'',actions:[{label:'Verwijder opdrachtgever',style:'destructive',value:'ok'}]});
-  closeSw(); if(r!=='ok') return;
-  state.settings.clients.splice(i,1); save(); render(); hud('Verwijderd','trash');
+async function deleteClient(name){
+  if(state.settings.clients.length<=1){ hud('Minstens één nodig','exclam'); return; }
+  const n=state.entries.filter(e=>e.client===name).length;
+  const r=await actionSheet({title:`${name} verwijderen?`,message:n?`De ${n} bestaande ${n===1?'werkdag blijft':'werkdagen blijven'} bewaard, net als de facturen.`:'',actions:[{label:'Verwijder opdrachtgever',style:'destructive',value:'ok'}]});
+  if(r!=='ok') return;
+  state.settings.clients=state.settings.clients.filter(c=>c!==name); save(); render(); hud('Verwijderd','trash');
+}
+function setCycle(name,v){
+  if(cyc(name)===v) return;
+  state.settings.cycle[name]=v; normalizeStatus(state); save(); render();
+  hud(v==='job'?'Per opdracht':'Per maand');
 }
 function backupDue(){ const s=state.settings,t=todayStr(); if(s.backupSnooze&&s.backupSnooze>t) return false; return !s.lastBackup||daysBetween(s.lastBackup,t)>=30; }
 async function exportBackup(){
@@ -1073,16 +1302,16 @@ async function importBackup(file){
   const m=migrate(d);
   const r=await actionSheet({title:'Back-up terugzetten?',message:`${m.entries.length} werkdagen${d.exportedAt?`, gemaakt op ${dMed(String(d.exportedAt).slice(0,10))}`:''}. Je huidige gegevens worden vervangen.`,actions:[{label:'Zet back-up terug',style:'destructive',value:'ok'}]});
   if(r!=='ok') return;
-  state=m; save(); applyTheme(); render(); hud('Teruggezet');
+  popAll(); state=m; save(); applyTheme(); render(); hud('Teruggezet');
 }
 async function wipeAll(){
   const r=await actionSheet({title:'Alle gegevens wissen?',message:'Alle werkdagen, facturen en instellingen worden van dit toestel verwijderd. Dit kan niet ongedaan worden gemaakt.',actions:[{label:'Wis alle gegevens',style:'destructive',value:'ok'}]});
   if(r!=='ok') return;
-  const theme=state.settings.theme; state=migrate({}); state.settings.theme=theme; save(); render(); hud('Alles gewist','trash');
+  const theme=state.settings.theme; popAll(); state=migrate({}); state.settings.theme=theme; save(); render(); hud('Alles gewist','trash');
 }
 
-/* ================= Werkdag-formulier (sheet) ================= */
-let edit=null, fType='uren', sheetDirty=false, touchedKm=false, touchedBreak=false, kmRateCur=0;
+/* ================= formulier (sheet) ================= */
+let edit=null, sheetMode='new', fType='uren', sheetDirty=false, touchedKm=false, touchedBreak=false, touchedAcc=false, kmRateCur=0;
 function setPick(input,val){ input.value=val||''; syncPick(input); }
 function syncPick(input){
   const w=input.closest('.pick'); if(!w) return; const v=input.value;
@@ -1094,38 +1323,38 @@ function fillBreak(extra){
   const set=new Set(); for(let m=0;m<=180;m+=5) set.add(m); if(extra>0) set.add(Math.round(extra));
   $('#fBreak').innerHTML=[...set].sort((a,b)=>a-b).map(m=>`<option value="${m}">${fmtMin(m)}</option>`).join('');
 }
-const lastEntryFor=c=>sortDesc(state.entries).find(e=>e.client===c);
+const lastEntryFor=c=>sortDesc(state.entries.filter(e=>!e.planned)).find(e=>e.client===c);
 function applyClientDefaults(c){
   const last=lastEntryFor(c);
   setType(last?last.type:(/\bdj\b/i.test(c)?'gig':'uren'),false);
   if(!touchedKm) $('#fKm').value=last&&num(last.km)?fmtNum(num(last.km),1):'';
   if(!touchedBreak){ const b=last&&last.type!=='gig'?num(last.breakMin):0; fillBreak(b); $('#fBreak').value=String(b); syncSel($('#fBreak')); }
+  if(!touchedAcc) $('#fAcc').checked=last?last.inAcc!==false:true;
 }
-function openSheet(entry=null,preset={}){
-  closeSw();
-  edit=entry; sheetDirty=false; touchedKm=false; touchedBreak=false;
-  const s=state.settings, opts=[...s.clients];
-  if(entry&&!opts.includes(entry.client)) opts.push(entry.client);
-  $('#fClient').innerHTML=opts.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+function openSheet(entry=null,opts={}){
+  edit=entry; sheetMode=entry?(opts.confirm?'confirm':'edit'):'new';
+  sheetDirty=false; touchedKm=touchedBreak=touchedAcc=false;
+  const s=state.settings, opts2=[...s.clients];
+  if(entry&&!opts2.includes(entry.client)) opts2.push(entry.client);
+  $('#fClient').innerHTML=opts2.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
   if(entry){
-    setPick($('#fDate'),entry.date); $('#fClient').value=entry.client;
+    setPick($('#fDate'),sheetMode==='confirm'&&entry.date>todayStr()?todayStr():entry.date); $('#fClient').value=entry.client;
     setType(entry.type,false);
     setPick($('#fStart'),entry.start); setPick($('#fEnd'),entry.end);
     fillBreak(entry.breakMin); $('#fBreak').value=String(Math.round(entry.breakMin||0));
     $('#fRate').value=fmtAmt(rateOf(entry)); $('#fFee').value=entry.fee?fmtAmt(entry.fee):''; $('#fKm').value=num(entry.km)?fmtNum(num(entry.km),1):''; $('#fNote').value=entry.note||'';
-    kmRateCur=kmRateOf(entry);
+    $('#fAcc').checked=entry.inAcc!==false; kmRateCur=kmRateOf(entry);
   } else {
-    const recent=sortDesc(state.entries)[0];
-    const c=preset.client||(recent&&s.clients.includes(recent.client)?recent.client:s.clients[0]);
-    setPick($('#fDate'),todayStr()); $('#fClient').value=c;
+    const recent=sortDesc(state.entries.filter(e=>!e.planned))[0];
+    const c=opts.client||(recent&&s.clients.includes(recent.client)?recent.client:s.clients[0]);
+    setPick($('#fDate'),opts.date||todayStr()); $('#fClient').value=c;
     setPick($('#fStart'),''); setPick($('#fEnd'),'');
     $('#fRate').value=fmtAmt(s.hourly); $('#fFee').value=''; $('#fNote').value='';
     kmRateCur=num(s.km); fillBreak(0); applyClientDefaults(c);
   }
   syncSel($('#fClient')); syncSel($('#fBreak'));
-  $('#sheetTitle').textContent=entry?'Werkdag':'Nieuwe werkdag';
-  $('#saveBtn').textContent=entry?'Bewaar':'Voeg toe';
   $('#deleteBtn').classList.toggle('hide',!entry);
+  $('#deleteBtn').textContent=entry&&entry.planned?'Verwijder geplande job':'Verwijder werkdag';
   updateForm();
   $('#sheetBody').scrollTop=0;
   const sh=$('#sheet'); sh.style.transform=''; sh.classList.add('on'); sh.setAttribute('aria-hidden','false');
@@ -1153,12 +1382,15 @@ function setType(t,dirty=true){
 }
 function formEntry(){
   return {type:fType,date:$('#fDate').value,client:$('#fClient').value,start:$('#fStart').value,end:$('#fEnd').value,
-    breakMin:+$('#fBreak').value||0,rate:num($('#fRate').value),fee:num($('#fFee').value),km:Math.max(0,num($('#fKm').value)),kmRate:kmRateCur,note:$('#fNote').value.trim()};
+    breakMin:+$('#fBreak').value||0,rate:num($('#fRate').value),fee:num($('#fFee').value),km:Math.max(0,num($('#fKm').value)),kmRate:kmRateCur,note:$('#fNote').value.trim(),inAcc:$('#fAcc').checked};
 }
 const SOFT=['Vul je start- en eindtijd in','Vul het bedrag van de gig in'];
 function validate(f){
   if(!f.date) return 'Kies een datum';
   if(!f.client) return 'Kies een opdrachtgever';
+  const fut=f.date>todayStr();
+  if(fut&&sheetMode==='confirm') return 'Bevestigen kan pas op of na de dag van de job';
+  if(fut&&sheetMode==='edit'&&!(edit&&edit.planned)) return 'Een gewerkte dag kan niet in de toekomst liggen';
   if(f.type==='uren'){
     if(!f.start||!f.end) return SOFT[0];
     if(toMin(f.start)===toMin(f.end)) return 'Start- en eindtijd zijn gelijk';
@@ -1167,55 +1399,79 @@ function validate(f){
   } else if(f.fee<=0) return SOFT[1];
   return '';
 }
+function sheetTitles(f){
+  const fut=f.date>todayStr();
+  if(sheetMode==='new') return fut?['Geplande job','Plan']:['Nieuwe werkdag','Voeg toe'];
+  if(sheetMode==='confirm') return ['Bevestig werkdag','Bevestig'];
+  return edit&&edit.planned?['Geplande job','Bewaar']:['Wijzig werkdag','Bewaar'];
+}
 function updateForm(){
-  const f=formEntry(), err=validate(f), p=partsC(f);
-  $('#saveBtn').disabled=!!err;
+  const f=formEntry(), err=validate(f), p=partsC(f), [title,btn]=sheetTitles(f), fut=f.date>todayStr();
+  const planning=(sheetMode==='new'&&fut)||(sheetMode==='edit'&&edit&&edit.planned);
+  $('#sheetTitle').textContent=title; $('#saveBtn').textContent=btn; $('#saveBtn').disabled=!!err;
+  $('#dateInfo').textContent=planning?'Dit is een geplande job. Na de job bevestig je je echte uren; tot dan telt hij enkel mee in je prognose.':sheetMode==='confirm'?'Controleer je echte uren, pauze en kilometers en tik op Bevestig.':'';
   if(f.type==='uren') $('#hoursInfo').innerHTML=(f.start&&f.end)
-    ?`Gewerkt ${fmtH(workMin(f))}${f.breakMin?` − ${fmtMin(f.breakMin)} pauze`:''} = <b>${fmtH(billMin(f))}</b> te factureren${toMin(f.end)<toMin(f.start)?' (loopt door na middernacht)':''}.`
+    ?`Gewerkt ${fmtH(workMin(f))}${f.breakMin?` − ${fmtMin(f.breakMin)} pauze`:''} = <b>${fmtH(billMin(f))}</b> (${fmtDec(billMin(f))} u) te factureren${toMin(f.end)<toMin(f.start)?' · loopt door na middernacht':''}.`
     :'Kies je start- en eindtijd.';
   $('#kmInfo').textContent=`Vergoeding ${money(f.kmRate)} per km.`;
   const lines=[f.type==='uren'?[`${fmtH(billMin(f))} × ${money(f.rate)}`,money(p.w/100)]:['Vaste prijs',money(p.w/100)]];
   if(f.km>0) lines.push([`${fmtNum(f.km,1)} km × ${money(f.kmRate)}`,money(p.k/100)]);
-  $('#sum').innerHTML=lines.map(l=>`<div class="sum-line"><span>${l[0]}</span><span>${l[1]}</span></div>`).join('')+`<div class="sum-tot"><span>Te factureren</span><b class="rounded">${money((p.w+p.k)/100)}</b></div>`;
+  if(!f.inAcc) lines.push(['Niet via Accountable gefactureerd','']);
+  $('#sum').innerHTML=lines.map(l=>`<div class="sum-line"><span>${l[0]}</span><span>${l[1]}</span></div>`).join('')+`<div class="sum-tot"><span>${planning?'Verwacht':f.inAcc?'Te factureren':'Verdiend'}</span><b class="rounded">${money((p.w+p.k)/100)}</b></div>`;
   const fe=$('#formErr'); fe.textContent=err; fe.classList.toggle('bad',!!err&&!SOFT.includes(err));
 }
+function warnInfo(key){ const st=stOf(key); return st.s==='open'?null:{key,st:clone(st)}; }
 function saveSheet(){
   const f=formEntry(); if(validate(f)) return;
-  const old=edit, wasEdit=!!old;
+  const old=edit, mode=sheetMode, today=todayStr();
+  const planned=mode==='new'?f.date>today:mode==='confirm'?false:!!old.planned;
   const e={id:old?old.id:uid(),date:f.date,client:f.client,type:f.type,
     start:f.type==='uren'?f.start:'',end:f.type==='uren'?f.end:'',breakMin:f.type==='uren'?f.breakMin:0,
     fee:f.type==='gig'?r2(f.fee):0,km:Math.round(f.km*10)/10,note:f.note,
     rate:f.type==='uren'?r2(f.rate):(old?rateOf(old):num(state.settings.hourly)),kmRate:f.kmRate,
-    createdAt:(old&&old.createdAt)||new Date().toISOString()};
-  const changed=!old||ecents(old)!==ecents(e)||old.client!==e.client||old.date.slice(0,7)!==e.date.slice(0,7);
-  if(wasEdit){ const i=state.entries.findIndex(x=>x.id===e.id); if(i>=0) state.entries[i]=e; else state.entries.push(e); }
-  else state.entries.push(e);
+    planned,inAcc:f.inAcc,createdAt:(old&&old.createdAt)||new Date().toISOString()};
+  // facturen die al verstuurd/betaald zijn en door deze wijziging veranderen → waarschuwen
+  const watch=[]; const oldKey=old&&isInv(old)?invKeyOf(old):null, newKey=isInv(e)?invKeyOf(e):null;
+  if(oldKey){ const w=warnInfo(oldKey); if(w) watch.push(w); }
+  if(newKey&&newKey!==oldKey){ const w=warnInfo(newKey); if(w) watch.push(w); }
+  const changed=!old||ecents(old)!==ecents(e)||oldKey!==newKey||old.note!==e.note;
+  if(old){ const i=state.entries.findIndex(x=>x.id===e.id); if(i>=0) state.entries[i]=e; else state.entries.push(e); } else state.entries.push(e);
   closeSheet(); save(); render();
-  const key=e.client+'|'+e.date.slice(0,7);
-  if(changed&&stOf(key).s!=='open') setTimeout(()=>warnLocked(key),400);
-  else hud(wasEdit?'Bewaard':'Toegevoegd');
+  if(changed&&watch.length) setTimeout(()=>warnLocked(watch[0]),400);
+  else hud(mode==='confirm'?'Bevestigd':planned&&mode==='new'?'Gepland':old?'Bewaard':'Toegevoegd',planned&&mode==='new'?'cal':'check');
 }
-function warnLocked(key){
-  const s=stOf(key).s, g=groups().find(x=>x.key===key), [c,m]=splitKey(key);
-  iosDialog({title:`Factuur al ${s==='sent'?'verstuurd':'betaald'}`,message:`De factuur van ${c} voor ${monthOnly(m)} staat op “${ST[s].l}”. Het nieuwe totaal is ${money(g?g.c/100:0)}. Pas je factuur eventueel aan.`,buttons:[{label:'OK',value:true,style:'bold'}]});
+function keyLabel(key){ const j=key.indexOf('|'), c=key.slice(0,j), rest=key.slice(j+1); if(rest[0]==='#'){ const e=state.entries.find(x=>x.id===rest.slice(1))||(state.trash.find(t=>t.e.id===rest.slice(1))||{}).e; return e?`${c} · ${dShort(e.date)}`:c; } return `${c} · ${monthName(rest)}`; }
+function warnLocked({key,st}){
+  const g=groups().find(x=>x.key===key), label=keyLabel(key), was=st.amount!=null?` met ${money(st.amount)} in Accountable`:'';
+  const msg=g?`De factuur ${label} staat op “${ST[st.s].l}”${was}. Thorax berekent nu ${money(g.c/100)}. Controleer je factuur in Accountable en pas het bedrag in Thorax aan als dat nodig is.`
+    :`De factuur ${label} stond op “${ST[st.s].l}”${was}, maar bevat nu geen werkdagen meer in Thorax. Controleer je factuur in Accountable.`;
+  iosDialog({title:`Factuur al ${st.s==='sent'?'verstuurd':'betaald'}`,message:msg,buttons:[{label:'OK',value:true,style:'bold'}]});
 }
-async function deleteEntry(id,fromSheet){
+async function deleteEntry(id){
   const e=state.entries.find(x=>x.id===id); if(!e) return;
-  const r=await actionSheet({message:`${e.client} · ${dShort(e.date)} · ${money(amount(e))}`,actions:[{label:'Verwijder werkdag',style:'destructive',value:'del'}]});
-  if(r!=='del'){ closeSw(); return; }
-  const key=e.client+'|'+e.date.slice(0,7);
+  const r=await actionSheet({message:`${e.client} · ${dShort(e.date)} · ${money(amount(e))}\nJe vindt hem daarna ${TRASH_DAYS} dagen terug in Recent verwijderd.`,actions:[{label:e.planned?'Verwijder geplande job':'Verwijder werkdag',style:'destructive',value:'del'}]});
+  if(r!=='del') return;
+  const key=isInv(e)?invKeyOf(e):null, w=key?warnInfo(key):null;
+  state.trash.unshift({e:clone(e),at:new Date().toISOString(),st:key&&key.includes('|#')&&w?clone(w.st):null});
   state.entries=state.entries.filter(x=>x.id!==id);
-  if(fromSheet) closeSheet();
-  openSw=null; save(); render();
-  if(stOf(key).s!=='open'&&groups().some(g=>g.key===key)) setTimeout(()=>warnLocked(key),400);
-  else hud('Verwijderd','trash');
+  closeSheet(); save(); render();
+  undoToast(e.planned?'Geplande job verwijderd':'Werkdag verwijderd',()=>restoreEntry(id));
+  if(w) setTimeout(()=>warnLocked(w),400);
+}
+function restoreEntry(id){
+  const i=state.trash.findIndex(t=>t.e.id===id); if(i<0) return;
+  const t=state.trash.splice(i,1)[0]; let e=t.e;
+  if(state.entries.some(x=>x.id===e.id)) e=Object.assign({},e,{id:uid()});
+  state.entries.push(e);
+  if(t.st&&isInv(e)&&cyc(e.client)==='job'){ const k=invKeyOf(e); if(!state.status[k]) state.status[k]=t.st; }
+  save(); render(); hud('Teruggezet');
 }
 
 /* ================= iOS-dialogen ================= */
 function actionSheet({title='',message='',actions=[],cancel='Annuleer'}){
   return new Promise(res=>{
     const ov=document.createElement('div'); ov.className='as-ov';
-    ov.innerHTML=`<div class="as-bg"></div><div class="as" role="dialog" aria-modal="true"><div class="as-group">${title||message?`<div class="as-head">${title?`<b>${esc(title)}</b>`:''}${message?`<span>${esc(message)}</span>`:''}</div>`:''}${actions.map((a,i)=>`<button class="as-btn ${a.style||''}" data-i="${i}">${esc(a.label)}</button>`).join('')}</div><button class="as-btn as-cancel" data-i="-1">${esc(cancel)}</button></div>`;
+    ov.innerHTML=`<div class="as-bg"></div><div class="as" role="dialog" aria-modal="true"><div class="as-group">${title||message?`<div class="as-head">${title?`<b>${esc(title)}</b>`:''}${message?`<span>${esc(message).replace(/\n/g,'<br>')}</span>`:''}</div>`:''}${actions.map((a,i)=>`<button class="as-btn ${a.style||''}" data-i="${i}">${esc(a.label)}</button>`).join('')}</div><button class="as-btn as-cancel" data-i="-1">${esc(cancel)}</button></div>`;
     document.body.appendChild(ov); ov.getBoundingClientRect(); ov.classList.add('on');
     const done=v=>{ ov.classList.remove('on'); setTimeout(()=>ov.remove(),320); res(v); };
     ov.addEventListener('click',e=>{ const b=e.target.closest('.as-btn'); if(b){ const i=+b.dataset.i; done(i<0?null:actions[i].value); } else if(e.target.classList.contains('as-bg')) done(null); });
@@ -1225,7 +1481,7 @@ function actionSheet({title='',message='',actions=[],cancel='Annuleer'}){
 function iosDialog({title='',message='',input=null,buttons=[{label:'OK',value:true,style:'bold'}]}){
   return new Promise(res=>{
     const ov=document.createElement('div'); ov.className='al-ov';
-    ov.innerHTML=`<div class="al" role="alertdialog" aria-modal="true"><div class="al-body">${title?`<div class="al-t">${esc(title)}</div>`:''}${message?`<div class="al-m">${esc(message)}</div>`:''}${input?`<input class="al-in" value="${esc(input.value||'')}" placeholder="${esc(input.placeholder||'')}" autocapitalize="words" autocomplete="off" enterkeyhint="done">`:''}</div><div class="al-btns">${buttons.map((b,i)=>`<button class="${b.style||''}" data-i="${i}">${esc(b.label)}</button>`).join('')}</div></div>`;
+    ov.innerHTML=`<div class="al" role="alertdialog" aria-modal="true"><div class="al-body">${title?`<div class="al-t">${esc(title)}</div>`:''}${message?`<div class="al-m">${esc(message)}</div>`:''}${input?`<input class="al-in" value="${esc(input.value||'')}" placeholder="${esc(input.placeholder||'')}" inputmode="${input.mode||'text'}" autocapitalize="${input.mode==='decimal'?'off':'words'}" autocomplete="off" enterkeyhint="done">`:''}</div><div class="al-btns">${buttons.map((b,i)=>`<button class="${b.style||''}" data-i="${i}">${esc(b.label)}</button>`).join('')}</div></div>`;
     document.body.appendChild(ov); const inp=$('.al-in',ov);
     if(inp){ inp.focus(); inp.select(); }
     ov.getBoundingClientRect(); ov.classList.add('on');
@@ -1239,41 +1495,11 @@ function hud(text,icon='check'){
   const h=$('#hud'); h.innerHTML=`${ICON[icon]||''}<div>${esc(text)}</div>`;
   h.classList.add('on'); clearTimeout(h._t); h._t=setTimeout(()=>h.classList.remove('on'),1300);
 }
+let toastT=null, toastFn=null;
+function undoToast(text,fn){ $('#toastText').textContent=text; toastFn=fn; $('#toast').classList.add('on'); clearTimeout(toastT); toastT=setTimeout(hideToast,6000); }
+function hideToast(){ $('#toast').classList.remove('on'); toastFn=null; }
 
 /* ================= gebaren ================= */
-let openSw=null, drag=null, suppressClick=false;
-const SWW=86;
-function setSw(el,x,anim){
-  const row=el.parentElement, act=row.querySelector('.swipe-actions');
-  el.style.transition=anim?'transform .3s cubic-bezier(.32,.72,0,1)':'none'; el.style.transform=x?`translateX(${x}px)`:'';
-  if(act) act.style.width=Math.max(SWW,-x)+'px';
-  if(x) row.classList.add('sw-on');
-  else setTimeout(()=>{ if(!el.style.transform) row.classList.remove('sw-on'); },anim?320:0);
-}
-function closeSw(){ if(openSw){ setSw(openSw,0,true); openSw=null; } }
-document.addEventListener('pointerdown',e=>{
-  suppressClick=false;
-  if(e.button!==0&&e.pointerType==='mouse') return;
-  if(e.target.closest('.as-ov,.al-ov')) return; // tikken in een menu/dialoog nooit onderscheppen
-  const content=e.target.closest('.swipe-content');
-  if(openSw){
-    const inActions=e.target.closest('.swipe-actions');
-    if(!(inActions&&inActions.parentElement===openSw.parentElement)){ closeSw(); suppressClick=true; return; }
-    return;
-  }
-  if(content) drag={el:content,x:e.clientX,y:e.clientY,dx:0,lock:null,id:e.pointerId};
-},true);
-document.addEventListener('pointermove',e=>{
-  if(!drag||e.pointerId!==drag.id) return;
-  const dx=e.clientX-drag.x, dy=e.clientY-drag.y;
-  if(!drag.lock){ if(Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy)*1.2) drag.lock='x'; else if(Math.abs(dy)>10){ drag=null; return; } else return; }
-  drag.dx=dx; suppressClick=true;
-  let x=Math.min(0,dx); if(x<-SWW) x=-SWW+(x+SWW)*.3;
-  setSw(drag.el,x,false);
-},{passive:true});
-function endSwipe(){ if(!drag) return; if(drag.lock==='x'){ if(drag.dx<-SWW/2){ setSw(drag.el,-SWW,true); openSw=drag.el; } else setSw(drag.el,0,true); } drag=null; }
-document.addEventListener('pointerup',endSwipe); document.addEventListener('pointercancel',endSwipe);
-
 // sheet omlaag vegen om te sluiten
 let sd=null;
 $('#sheetTop').addEventListener('pointerdown',e=>{ if(e.target.closest('button')) return; sd={y:e.clientY,id:e.pointerId,dy:0,t:Date.now()}; $('#sheet').style.transition='none'; });
@@ -1281,67 +1507,70 @@ window.addEventListener('pointermove',e=>{ if(!sd||e.pointerId!==sd.id) return; 
 const sheetDragEnd=async()=>{ if(!sd) return; const {dy,t}=sd; sd=null; const sh=$('#sheet'); sh.style.transition='';
   if(dy>120||(dy>40&&dy/(Date.now()-t)>.6)){ await requestCloseSheet(); } else sh.style.transform=''; };
 window.addEventListener('pointerup',sheetDragEnd); window.addEventListener('pointercancel',sheetDragEnd);
-
-// factuurdetail: vanaf de linkerrand terugvegen
-let ed=null;
-$('#detail').addEventListener('pointerdown',e=>{ if(e.clientX>28) return; ed={x:e.clientX,id:e.pointerId,dx:0}; });
-window.addEventListener('pointermove',e=>{ if(!ed||e.pointerId!==ed.id) return; ed.dx=Math.max(0,e.clientX-ed.x); const p=$('#detail'); p.style.transition='none'; p.style.transform=`translateX(${ed.dx}px)`; });
-const edgeEnd=()=>{ if(!ed) return; const dx=ed.dx; ed=null; const p=$('#detail'); p.style.transition=''; p.style.transform=''; if(dx>window.innerWidth*.33) closeDetail(); };
-window.addEventListener('pointerup',edgeEnd); window.addEventListener('pointercancel',edgeEnd);
-
 // grafiek scrubben (zoals in de Aandelen-app)
 const cv=$('#chart');
 cv.addEventListener('pointerdown',e=>{ chart.drag=true; scrubAt(e.clientX); });
 cv.addEventListener('pointermove',e=>{ if(chart.drag||e.pointerType==='mouse') scrubAt(e.clientX); });
 ['pointerup','pointercancel','pointerleave'].forEach(t=>cv.addEventListener(t,e=>{ if(t==='pointerup'&&e.pointerType==='mouse') return; endScrub(); }));
-cv.addEventListener('keydown',e=>{ if(!chart.geo) return; if(e.key==='ArrowLeft'||e.key==='ArrowRight'){ e.preventDefault(); const g=chart.geo, maxD=Math.max(g.last,g.hasPrev?g.pn:0,1); chart.scrub=Math.max(1,Math.min(maxD,(chart.scrub||g.last||1)+(e.key==='ArrowLeft'?-1:1))); drawChart(); setChartHead(chart.scrub); } else if(e.key==='Escape') endScrub(); });
+cv.addEventListener('keydown',e=>{ if(!chart.geo) return; if(e.key==='ArrowLeft'||e.key==='ArrowRight'){ e.preventDefault(); const g=chart.geo, maxD=g.plan?g.n:Math.max(g.last,g.hasPrev?g.pn:0,1); chart.scrub=Math.max(1,Math.min(maxD,(chart.scrub||g.last||1)+(e.key==='ArrowLeft'?-1:1))); drawChart(); setChartHead(chart.scrub); } else if(e.key==='Escape') endScrub(); });
 cv.addEventListener('blur',endScrub);
 
 /* ================= klikken ================= */
 document.addEventListener('click',e=>{
-  if(suppressClick){ suppressClick=false; e.preventDefault(); e.stopPropagation(); return; }
   const el=e.target.closest('[data-act]'); if(!el||el.disabled) return;
   const d=el.dataset;
   switch(d.act){
     case 'add': openSheet(null,{client:tab==='days'&&daysClient!=='all'&&state.settings.clients.includes(daysClient)?daysClient:undefined}); break;
+    case 'plan': openSheet(null,{date:addDays(todayStr(),1)}); break;
     case 'tab': showTab(d.tab); break;
+    case 'open-entry': pushPage('entry',d.id); break;
+    case 'open-inv': pushPage('inv',d.key); break;
+    case 'open-client': pushPage('client',d.name); break;
+    case 'open-trash': pushPage('trash',''); break;
+    case 'open-noacc': pushPage('noacc',''); break;
+    case 'back': popPage(); break;
     case 'edit-entry': { const en=state.entries.find(x=>x.id===d.id); if(en) openSheet(en); break; }
-    case 'del-entry': deleteEntry(d.id); break;
-    case 'open-inv': openDetail(d.key); break;
-    case 'back': closeDetail(); render(); break;
-    case 'set-status': if(detailKey){ setStatus(detailKey,d.s); render(); } break;
-    case 'share-inv': shareInvoice(); break;
-    case 'copy-inv': copyInvoice(); break;
+    case 'confirm-entry': { const en=state.entries.find(x=>x.id===d.id); if(en) openSheet(en,{confirm:true}); break; }
+    case 'set-status': setStatusUI(d.key,d.s); break;
+    case 'acc-amount': editAccAmount(d.key); break;
+    case 'copy-val': copyText(d.v).then(ok=>hud(ok?`${d.v} gekopieerd`:'Kopiëren mislukt',ok?'copy':'exclam')); break;
+    case 'share-inv': shareInvoice(d.key); break;
+    case 'copy-inv': copyInvoice(d.key); break;
+    case 'restore': restoreEntry(d.id); break;
+    case 'undo': { const f=toastFn; hideToast(); if(f) f(); break; }
     case 'month-prev': chartMonth=addMonths(chartMonth,-1); renderChart(); break;
-    case 'month-next': if(chartMonth<curMonth()){ chartMonth=addMonths(chartMonth,1); renderChart(); } break;
+    case 'month-next': if(chartMonth<maxMonth()){ chartMonth=addMonths(chartMonth,1); renderChart(); } break;
     case 'goal': showTab('set'); setTimeout(()=>$('#goalSec').scrollIntoView({behavior:'smooth',block:'start'}),60); break;
+    case 'goto-pot': showTab('set'); setTimeout(()=>{ $('#potSet').scrollIntoView({behavior:'smooth',block:'start'}); },60); break;
     case 'go-inv': invFilter=d.f||'all'; if(tab==='inv') render(); else showTab('inv'); break;
     case 'inv-filter': invFilter=(invFilter===d.f&&el.classList.contains('mini'))?'all':d.f; render(); break;
     case 'days-client': daysClient=d.c; renderDays(); break;
     case 'clear-search': $('#search').value=''; daysQuery=''; renderDays(); break;
     case 'theme': state.settings.theme=d.v; save(); applyTheme(); renderSet(); drawChart(); break;
     case 'add-client': addClient(); break;
-    case 'rename-client': renameClientUI(+d.i); break;
-    case 'del-client': deleteClientUI(+d.i); break;
+    case 'rename-client': renameClient(d.name); break;
+    case 'delete-client': deleteClient(d.name); break;
+    case 'set-cycle': setCycle(d.name,d.v); break;
     case 'export': exportBackup(); break;
     case 'import': $('#importFile').click(); break;
     case 'wipe': wipeAll(); break;
     case 'snooze-backup': state.settings.backupSnooze=ymd(new Date(Date.now()+7*864e5)); save(); render(); break;
     case 'sheet-cancel': requestCloseSheet(); break;
     case 'sheet-save': saveSheet(); break;
-    case 'sheet-delete': if(edit) deleteEntry(edit.id,true); break;
+    case 'sheet-delete': if(edit) deleteEntry(edit.id); break;
     case 'ftype': setType(d.t); break;
   }
-},true);
+});
 document.addEventListener('keydown',e=>{ if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-act]:not(button):not(input):not(select):not(textarea)')){ e.preventDefault(); e.target.click(); } });
 
 /* ================= invoer ================= */
 const sheet=$('#sheet');
-sheet.addEventListener('input',e=>{ const t=e.target; sheetDirty=true; if(t.id==='fKm') touchedKm=true; if(t.closest('.pick')) syncPick(t); updateForm(); });
+sheet.addEventListener('input',e=>{ const t=e.target; sheetDirty=true; if(t.id==='fKm') touchedKm=true; if(t.id==='fAcc') touchedAcc=true; if(t.closest('.pick')) syncPick(t); updateForm(); });
 sheet.addEventListener('change',e=>{ const t=e.target; sheetDirty=true;
   if(t.closest('.pick')) syncPick(t);
   if(t.id==='fClient'){ syncSel(t); if(!edit) applyClientDefaults(t.value); }
   if(t.id==='fBreak'){ touchedBreak=true; syncSel(t); }
+  if(t.id==='fAcc') touchedAcc=true;
   updateForm(); });
 $$('.pick input').forEach(i=>i.addEventListener('click',()=>{ if(!IOS&&i.showPicker){ try{ i.showPicker(); }catch(_){} } }));
 $$('input[enterkeyhint="done"]').forEach(i=>i.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); i.blur(); } }));
@@ -1349,15 +1578,15 @@ $('#search').addEventListener('input',e=>{ daysQuery=e.target.value; renderDays(
 $('#importFile').addEventListener('change',e=>{ const f=e.target.files[0]; e.target.value=''; if(f) importBackup(f); });
 $('#sHourly').addEventListener('change',e=>{ const v=num(e.target.value); if(v>0){ state.settings.hourly=r2(v); save(); } e.target.value=fmtAmt(state.settings.hourly); });
 $('#sKm').addEventListener('change',e=>{ if(e.target.value.trim()!==''){ const v=num(e.target.value); if(v>=0){ state.settings.km=Math.round(v*1000)/1000; save(); } } e.target.value=fmtNum(state.settings.km,3); });
+$('#sPct').addEventListener('change',e=>{ const raw=e.target.value.trim(); state.settings.reservePct=raw===''?null:Math.min(100,Math.max(0,num(raw))); save(); e.target.value=state.settings.reservePct==null?'':fmtNum(state.settings.reservePct,1); });
 $('#gLabel').addEventListener('change',e=>{ state.goal.label=e.target.value.trim()||'Mijn doel'; e.target.value=state.goal.label; save(); });
 $('#gAmount').addEventListener('change',e=>{ const v=num(e.target.value); if(v>0){ state.goal.amount=r2(v); save(); } e.target.value=fmtAmt(state.goal.amount); });
 $('#gStart').addEventListener('change',e=>{ const v=e.target.value; if(v){ state.goal.start=v; if(state.goal.end<v) state.goal.end=v; save(); } renderSet(); });
 $('#gEnd').addEventListener('change',e=>{ const v=e.target.value; if(v){ state.goal.end=v; if(state.goal.start>v) state.goal.start=v; save(); } renderSet(); });
-
 document.addEventListener('keydown',e=>{
   if(e.key!=='Escape') return;
   const ov=$$('.al-ov,.as-ov').pop(); if(ov&&ov._esc){ ov._esc(); return; }
-  if(sheet.classList.contains('on')) requestCloseSheet(); else if(detailKey){ closeDetail(); render(); }
+  if(sheet.classList.contains('on')) requestCloseSheet(); else if(stack.length) popPage();
 });
 let ticking=false;
 window.addEventListener('scroll',()=>{ if(!ticking){ ticking=true; requestAnimationFrame(()=>{ ticking=false; onScroll(); }); } },{passive:true});
